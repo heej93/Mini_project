@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main/', ),
-    path('map/', include('map.urls'),)
+<<<<<<< HEAD
+    path('main/', admin.site.urls),
+=======
+    path('map/', include('map.urls'))
+>>>>>>> origin/kakao_API
 ]
