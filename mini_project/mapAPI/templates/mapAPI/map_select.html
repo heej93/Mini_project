@@ -201,23 +201,15 @@
 </head>
 
 <body>
-    <form onsubmit="searchPlaces(); return false;">
-        <input type="text" value="서울시 동작구" id="keyword" size="15"> 
-        <select name="category" id="category">
-            <option value="cafe_for">애견카페</option>
-            <option value="playground_for">놀이터,훈련소</option>
-            <option value="meal_with">식당,카페</option>
-            <option value="stay_with">펜션,호텔</option>
-          </select>
-        <button type="submit">검색</button> 
-    </form>
     <div class="map_wrap">
         <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
         <div id="menu_wrap" class="bg_white">
             <div class="option">
                 <div>
-
+                    <form onsubmit="searchPlaces(); return false;">
+                        <input type="hidden" value="애견동반카페" id="keyword" size="15">
+                    </form>
                 </div>
             </div>
             <hr>
@@ -257,7 +249,7 @@
             var keyword = document.getElementById('keyword').value;
 
             if (!keyword.replace(/^\s+|\s+$/g, '')) {
-                alert('주소가 입력되어야 합니다.');
+                alert('키워드를 입력해주세요!');
                 return false;
             }
 
@@ -450,11 +442,11 @@
 
         /******************************************************************************************/
 
-        $("#placesList > li:nth-child(1) > div").click(function () {
+        $("#placesList > li:nth-child(1)").click(function () {
             console.log("test")
         })
 
-
+        
 
     </script>
 </body>
