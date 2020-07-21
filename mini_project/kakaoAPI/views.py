@@ -3,7 +3,6 @@ import requests
 
 
 def map_test(request):
-    return render(request, 'mapAPI/map_test.html')
-
+    return render(request, 'kakaoAPI/map_test.html')
 
 
