@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+app_name = "sign"
 urlpatterns = [
-    path('signMain/', views.signMain, name="signMain"),
+    path('join/', views.join, name="join"),
+    path('join_post/', views.join_post, name="join_post"),
 ]
