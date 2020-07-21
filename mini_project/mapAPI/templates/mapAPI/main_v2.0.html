@@ -11,9 +11,11 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- kakao API 사용을 위한 style -->
   <style>
+
     #link_test {
-      font-size: 20px;
+      font-size: 10px;
       text-align: center;
     }
 
@@ -99,6 +101,10 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+    }
+
+    #placesList .item h5 {
+      color: black;
     }
 
     #placesList .item .info {
@@ -202,7 +208,9 @@
       cursor: default;
       color: #777;
     }
-
+  </style>
+  <!-- 웹페이지 디자인 관련 style -->
+  <style>
     body {
       font: 400 15px Lato, sans-serif;
       line-height: 1.8;
@@ -491,41 +499,42 @@
 
   <div class="jumbotron text-center">
     <h5>댕댕이와 함께할 장소는 어디인가요?</h5>
-    <h3>함께하개에서 반려견과 함께할 여정을 계획해보세요</h3>
+    <h3>함개닷컴에서 반려견과 함께할 여정을 계획해보세요</h3>
 
 
+    <form onsubmit="searchPlaces(); return false;">
+      <div class="search_location">
+        <div class="row">
+          <div class="col-xs-3 col-sm-offset-2">
+            <label for="search_location"></label>
+            <input type="text" class="form-control input-lg" name="search_location" id="search_location" value="서울 강남구"
+              placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on">
+            <i class="locate-me loading"></i>
+          </div>
 
-    <div class="search_location">
-      <div class="row">
-        <div class="col-xs-3 col-sm-offset-2">
-          <label for="search_location"></label>
-          <input type="text" class="form-control input-lg" name="search_location" id="search_location"
-            placeholder="주소 (ex. 서울시 강남구)" value="" class="pac-target-input" autocomplete="on">
-          <i class="locate-me loading"></i>
-        </div>
+          <div class="dropdown">
+            <div class="col-xs-3">
+              <label for="category"></label>
+              <select class="form-control input-lg" id="category" value="카페" placeholder="카테고리">
+                <option>Category</option>
+                <option>-----------------------------------------</option>
+                <option>카페</option>
+                <option>음식점</option>
+                <option>병원</option>
+                <option>공원/놀이터</option>
+              </select>
+            </div>
+          </div>
 
-        <div class="dropdown">
-          <div class="col-xs-3">
-            <label for="category"></label>
-            <select class="form-control input-lg" id="category" placeholder="카테고리">
-              <option>Category</option>
-              <option>-----------------------------------------</option>
-              <option>카페</option>
-              <option>음식점</option>
-              <option>병원</option>
-              <option>공원/놀이터</option>
-            </select>
+          <div class="search" style="float:left">
+            <div class="col-xs-4"></div>
+            <label for="search"></label>
+            <button type="submit" class="btn btn-danger btn-lg" id="search" size="10"> 검 색 </button>
           </div>
         </div>
-        <div class="search" style="float:left">
-          <div class="col-xs-4"></div>
-          <label for="search"></label>
-          <button type="button" class="btn btn-danger btn-lg" id="search" size="10"> 검 색 </button>
-        </div>
       </div>
-    </div>
+    </form>
   </div>
-
 
   <div id="search_result" style="display:none;">
     <!-- Container (About Section) -->
@@ -533,34 +542,35 @@
       <h2>마음에 드는 장소를 선택해주세요
         <hr>
       </h2>
- 
     </div>
+
 
 
     <!-- 첫번째 행선지 선택 -->
     <div id="first-destination">
       <div class="container-fluid bg-grey ">
-        <div class="map_wrap">
-          <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-          <div id="menu_wrap" class="bg_white">
-            <div class="option">
-              <div>
-  
-              </div>
-            </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-          </div>
-        </div>
-      <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
-      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
+        <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
+        <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
       </div>
     </div>
   </div>
 
 
+  <div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
+    <div id="menu_wrap" class="bg_white">
+      <div class="option">
+        <div>
+
+        </div>
+      </div>
+      <hr>
+      <ul id="placesList"></ul>
+      <div id="pagination"></div>
+    </div>
+  </div>
+  <div id="click_list"></div>
 
   <footer class="container-fluid text-center">
     <a href="#myPage" title="To Top">
@@ -573,6 +583,9 @@
   <script>
     // 마커를 담을 배열입니다
     var markers = [];
+
+    // 클릭기록 저장용
+    var click_list = [];
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
       mapOption = {
@@ -589,15 +602,15 @@
     // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-    var input_addr;
-    var input_cat;
+    var input_addr = "서울 강남구"; // 초기값
+    var input_cat = "애견카페"; // 초기값
     // 키워드로 장소를 검색합니다
     searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
     function searchPlaces() {
-      input_addr = document.getElementById('input_addr').value;
-      input_cat = document.getElementById('input_cat').value;
+      input_addr = document.getElementById('search_location').value;
+      input_cat = document.getElementById('category').value;
       if (!input_addr.replace(/^\s+|\s+$/g, '')) {
         alert('주소가 입력되어야 합니다.');
         return false;
@@ -609,13 +622,6 @@
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
-      // // console.log(data);
-      // for(var i = 0; i < data.length; i++) {
-      //     var obj = data[i];
-      //     console.dir(obj);
-      // }
-      // // console.log(status);
-      // // console.log(pagination);
 
       if (status === kakao.maps.services.Status.OK) {
 
@@ -626,9 +632,7 @@
             i--;
           }
         }
-        console.log(data);
-        console.log(pagination);
-
+        
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
@@ -678,7 +682,7 @@
         // 마커를 클릭하면 infowindow를 엽니다
         (function (marker, title) {
           kakao.maps.event.addListener(marker, 'click', function () {
-            displayInfowindow(marker, title);
+            click_list.push({title:title,LatLng:marker.getPosition()})
           });
         })(marker, places[i].place_name);
 
@@ -713,6 +717,12 @@
 
       el.innerHTML = itemStr;
       el.className = 'item';
+
+      test = 
+      $("markerbg marker_'+(index + 1)").onclick(()=>{
+        // click_list.push({title:title,LatLng:marker.getPosition()})
+        
+      })
 
       return el;
     }
@@ -777,14 +787,14 @@
       paginationEl.appendChild(fragment);
     }
 
-    // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-    // 인포윈도우에 장소명을 표시합니다
-    function displayInfowindow(marker, title) {
-      // var content = '<div style="padding:5px;z-index:1;">' + title  + '</div>';
-      var content = '<div style="padding:5px;z-index:1;" id="link_test">' + title + '</div>';
-      infowindow.setContent(content);
-      infowindow.open(map, marker);
-    }
+    // // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+    // // 인포윈도우에 장소명을 표시합니다
+    // function displayInfowindow(marker, title) {
+    //   // var content = '<div style="padding:5px;z-index:1;">' + title  + '</div>';
+    //   var content = '<div style="padding:5px;z-index:1;" id="link_test">' + title + '</div>';
+    //   infowindow.setContent(content);
+    //   infowindow.open(map, marker);
+    // }
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
     function removeAllChildNods(el) {

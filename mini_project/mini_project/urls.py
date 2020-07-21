@@ -4,4 +4,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('map/', include('mapAPI.urls'),name="mapAPI"),
+    path('nougaga_test', include('kakaoAPI.urls'), name="kakaoAPI"),
 ]
