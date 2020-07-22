@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
   <!-- kakao API 사용을 위한 style -->
   <style>
 
@@ -472,6 +473,7 @@
     }
   </style>
 
+
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -561,6 +563,15 @@
   </div>
   
   <div id="click_list"></div>
+
+  <div id="clicks_show" class="container-fluid bg-grey">
+    
+    <!-- <button type="button" class="btn btn-default btn-lg" id="click_list">X 클릭리스트</button> -->
+    
+    
+  </div>
+
+
 
   <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
     <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
@@ -685,6 +696,12 @@
             test = marker;
             console.log(title);
             click_list.push({title:title,LatLng:marker.getPosition()})
+            
+            var clk_btns = document.querySelector('#clicks_show')
+            var i = click_list.length
+            clk_btns.innerHTML = click_list[i-1].title
+            
+            
           });
         })(marker, places[i].place_name);
 
@@ -812,6 +829,7 @@
 
   </script>
   <script>
+    //스크롤
     $(document).ready(function () {
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
@@ -846,6 +864,7 @@
         });
       });
     })
+    //검색 버튼 클릭 
     $('#search').click(function () {
       $('#search_result').show();
     })
@@ -854,10 +873,27 @@
     // })
     // $('#search').click(function () {
     //   $('#click_list').show();
-  // 
+    // })
     $('#search').click(function () {
       $('#buttons_result').show();
     })
+    //장바구니 생성
+    
+    window.onload = function(){  
+      console.log(click_list.length)
+      if (click_list.length>0) {
+        for(i=0; i<click_list.length; i++){
+          $("clicks_show").html(`
+                <button id="click${i}">'x'||{click_list[i].title}</button>
+                  `)
+        }  
+      }
+      else {
+        //pass
+      }
+    }
+    
+    
   </script>
 
 </body>

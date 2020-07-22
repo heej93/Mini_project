@@ -544,29 +544,29 @@
     </div>
   </div>
 
-  <!-- <div id="map_show" style="display:none;"> -->
-  <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="container-fluid bg-grey">
-      <div class="option">
-        <div>
-
+  <div id="map_show" style="display:none;">
+    <div class="map_wrap">
+      <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+  
+      <div id="menu_wrap" class="container-fluid bg-grey">
+        <div class="option">
+          <div>
+  
+          </div>
         </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
       </div>
-      <hr>
-      <ul id="placesList"></ul>
-      <div id="pagination"></div>
+    </div>
+   
+    <div id="click_list"></div>
+  
+    <div id="buttons_result" class="container-fluid bg-grey">
+      <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
+      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
     </div>
   </div>
-  
-  <div id="click_list"></div>
-
-  <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
-    <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
-    <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
-  </div>
-  
 
   <footer class="container-fluid text-center">
     <a href="#myPage" title="To Top">
@@ -849,14 +849,8 @@
     $('#search').click(function () {
       $('#search_result').show();
     })
-    // $('#search').click(function () {
-    //   $('#map_wrap').show();
-    // })
-    // $('#search').click(function () {
-    //   $('#click_list').show();
-  // 
     $('#search').click(function () {
-      $('#buttons_result').show();
+      $('#map_show').show();
     })
   </script>
 
