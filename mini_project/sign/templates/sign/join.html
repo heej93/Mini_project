@@ -91,7 +91,6 @@
             <div class="modal-body">
                 {% csrf_token %}
                 <label for="user_id">아이디</label>
-                <!-- <h1 class="form-control" name="user_id">{{user.user_id}}</h1><br> -->
                 <input type="text" name = "user_id" class="form-control", value="{{user.user_id}}"><br>
                 <label for="user_pw">비밀번호</label>
                 <input type="password" name = "user_pw" class="form-control", value="{{user.user_pw}}"><br>
@@ -101,7 +100,7 @@
                 <input type="text" name="user_dog" class="form-control", value="{{user.user_dog}}"><br>
             </div>
             <div class="modal-footer">
-                <input type="submit" value="정보수정" class="btn btn-success" id="user_modi">
+                <button type="submit" value="정보수정" class="btn btn-success" id="user_modi">정보수정</button>
                 <button type="button" class="btn btn-warning" id="user_del">회원탈퇴</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

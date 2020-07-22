@@ -13,7 +13,7 @@ def login(request):
             if user_pw == User.objects.get(user_id=user_id).user_pw:
                 user = User.objects.get(user_id=user_id)
                 request.session['user_id'] = user_id
-                return render(request, '/sign/join.html', {'user':user})
+                return render(request, '/sign/join.html/',{'user':user})
             else :
                 return HttpResponseRedirect('/sign/join/')
         except :
