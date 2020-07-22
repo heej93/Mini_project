@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mapAPI',
     'kakaoAPI',
+    'cart',
+    'dog_model',
 ]
 
 MIDDLEWARE = [
