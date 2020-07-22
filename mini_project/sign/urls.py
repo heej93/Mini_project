@@ -23,5 +23,6 @@ urlpatterns = [
     path('join_post/', views.join_post, name="join_post"),
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
-    path('user_modi/', views.user_modi, name="user_modi")
+    path('modi_info/', views.modi_info, name="modi_info"),
+    path('user_drop/', views.user_drop, name="user_drop")
 ]

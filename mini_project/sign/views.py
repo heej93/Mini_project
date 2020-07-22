@@ -8,13 +8,8 @@ def login(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         user_pw = request.POST.get('user_pw')
-        print(user_id, user_pw)
-        u = User.objects.get(user_id=user_id)
-        print(u)
         try:
-            u = User.objects.get(user_id=user_id)
-            print(u)
-
+            User.objects.get(user_id=user_id)
             if user_pw == User.objects.get(user_id=user_id).user_pw:
                 user = User.objects.get(user_id=user_id)
                 request.session['user_id'] = user_id
@@ -48,21 +43,21 @@ def join_post(request):
     else:
         return HttpResponseRedirect('/sign/join/')
 
-def user_modi(request):
-    return 
-    # user_id = request.GET.get('user_id')
-    # user_pw = request.GET.get('user_pw')
-    # user_email = request.GET.get('user_email')
-    # user_dog = request.GET.get('user_dog')
-    # user = User.objects.get(user_id = request.session['user_id'])
-    # user.user_id = user_id
-    # user.user_pw = user_pw
-    # user.user_email = user_email
-    # user.user_dog = user_dog
-    # user.save()
-    # request.session['user_id'] = user_id
-    # return render(request, 'sign/join.html', {'user' : user})
-        
+def modi_info(request):
+    user = User.objects.get(user_id=request.session['user_id'])
+    print(user)
+    user.user_id = request.POST.get('user_id')
+    user.user_pw = request.POST.get('user_pw')
+    user.user_email = request.POST.get('user_email')
+    user.user_dog = request.POST.get('user_dog')
+    user.save()
+    request.session['user_id'] = request.POST.get('user_id')
+    return render(request, 'sign/join.html',{'user':user})
 
-
+def user_drop(request):
+    user = User.objects.get(user_id=request.session['user_id'])
+    user.delete()
+    request.session.modified = True
+    del request.session['user_id']
+    return HttpResponseRedirect('/sign/join/')
     
