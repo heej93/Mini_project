@@ -8,15 +8,22 @@ def login(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         user_pw = request.POST.get('user_pw')
+        print(user_id, user_pw)
+        u = User.objects.get(user_id=user_id)
+        print(u)
         try:
-            User.objects.get(user_id=user_id)
+            u = User.objects.get(user_id=user_id)
+            print(u)
+
             if user_pw == User.objects.get(user_id=user_id).user_pw:
                 user = User.objects.get(user_id=user_id)
                 request.session['user_id'] = user_id
-                return render(request, '/sign/join.html/',{'user':user})
+                print(user)
+                return render(request, 'sign/join.html',{'user':user})
             else :
                 return HttpResponseRedirect('/sign/join/')
         except :
+            print('except')
             return HttpResponseRedirect('/sign/join/')
     else :
         return HttpResponseRedirect('/sign/join/')
