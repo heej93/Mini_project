@@ -202,8 +202,8 @@
 
 <body>
     <form onsubmit="searchPlaces(); return false;">
-        <input type="text" value="서울 중구" id="input_addr" size="15">
-        <select name="input_cat" id="input_cat">
+        <input type="text" id="input_addr" value="서울 중구" size="15">
+        <select name="input_cat" id="input_cat" value="애견카페">
             <option value="애견카페">애견카페</option>
             <option value="반려견놀이터">놀이터</option>
             <option value="반려견훈련소">훈련소</option>
@@ -251,8 +251,8 @@
         // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
         var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-        var input_addr;
-        var input_cat;
+        var input_addr = "서울 중구"; // 초기값
+        var input_cat = "애견카페"; // 초기값
         // 키워드로 장소를 검색합니다
         searchPlaces();
 
@@ -464,4 +464,3 @@
 </body>
 
 </html>
-
