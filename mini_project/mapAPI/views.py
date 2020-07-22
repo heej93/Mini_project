@@ -6,7 +6,7 @@ def map_test(request):
 
 def main_test(request):
    
-    return render(request, 'mapAPI/main_v2.3.html')
+    return render(request, 'mapAPI/main_v2.0.html')
 
 def filter(request):
    
