@@ -21,4 +21,7 @@ app_name = "sign"
 urlpatterns = [
     path('join/', views.join, name="join"),
     path('join_post/', views.join_post, name="join_post"),
+    path('login/', views.login, name="login"),
+    path('logout/', views.logout, name="logout"),
+    path('user_modi/', views.user_modi, name="user_modi")
 ]
