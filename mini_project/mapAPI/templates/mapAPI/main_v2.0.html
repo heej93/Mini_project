@@ -13,6 +13,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- kakao API 사용을 위한 style -->
   <style>
+    .modal-dialog.modal-fullsize {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .modal-content.modal-fullsize {
+      height: auto;
+      min-height: 100%;
+      border-radius: 0;
+    }
+
     .map_wrap,
     .map_wrap * {
       margin: 0;
@@ -519,7 +532,7 @@
               style="margin-left: 80px;font-family: 나눔바른고딕 Light;">
             <i class="locate-me loading"></i>
           </div>
-          
+
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
@@ -679,8 +692,21 @@
     </div>
   </div>
 
-
-
+  <!-- iframe test용입니다 (Nougaga) 1988-->
+  <div class="modal fade" id="naver" role="dialog">
+    <div class="modal-dialog modal-fullsize">
+      <!-- Modal content-->
+      <div class="modal-content col-lm-8 col-lm-offset-2" style="margin-top: 60px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
+          <iframe
+            src="https://map.naver.com/v5/directions/14355235.036036875,4186834.1480773445,%EC%9C%A0%EB%A6%BC%EC%9D%B4%EC%97%94%ED%8B%B0,489427525,PLACE_POI/14358455.664752807,4186279.8110201433,%EC%B2%A0%EC%9D%B87%ED%98%B8%20%EC%82%AC%EC%83%81%EC%A0%90,37039143,PLACE_POI/14354528.168402288,4187113.0837449264,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE2,1035370615,PLACE_POI:14354363.359896172,4187374.826381376,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EC%B6%9C%EB%B0%9CGATE3,1533354509,PLACE_POI:14354608.11806057,4187075.4979014155,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE4,1421003665,PLACE_POI:14355230.004395891,4186698.9111340027,%EB%B6%80%EC%82%B0T-PLEXGATE5,1221920334,PLACE_POI:14358432.476902876,4186174.3474107236,%EC%82%AC%EC%83%81%EC%97%AD(%EC%84%9C%EB%B6%80%ED%84%B0%EB%AF%B8%EB%84%90)6%EB%B2%88%EC%B6%9C%EA%B5%AC,21404409,PLACE_POI/car?c=14355714.7192672,4187583.4853463,12,0,0,0,dh"
+            height=600px width=100% title="Iframe Example"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -713,13 +739,12 @@
   <div id="buttons_result" class="container-fluid" style="display:none;">
     <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto">추가 행선지
       검색</button>
-    <form action="">
+    <form>
       <input type="hidden" value=click_list>
       <button type="submit" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
-        style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
+        style="width: 900px;margin:0 auto;margin-top: 10px;" data-toggle="modal" data-target="#naver">전체 경로 길찾기</button>
     </form>
   </div>
-
 
   <footer class="container-fluid text-center">
     <a href="#myPage" title="To Top">
@@ -977,7 +1002,7 @@
 
 
   </script>
-  <script> 
+  <script>
     $(document).ready(function () {
       $('#search').prop('disabled', true);
       $('#search_location').keyup(function () {
@@ -1057,6 +1082,11 @@
             $('input[name=user_email]').val(data.user_email);
             $('input[name=user_dog]').val(data.user_dog);
           },
+        })
+      })
+      $('#close1').click(() => {
+        $.ajax({
+
         })
       })
     })
