@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div id="outer">
-        outer
-        <div id="inner1">inner1</div>
-        <div id="inner2">inner2</div>
-    </div>
-    <script>
-        var outer = document.getElementById("outer");
-        var inner2 = document.getElementById("inner2");
-        outer.addEventListener("click",function(e){
-            console.log("outer bubbling");
-        },false);
-        outer.addEventListener("click",function(e){
-            console.log("outer capturing");
-        },true);
-        inner2.addEventListener("click",function(e){
-            console.log("inner2 bubbling");
-        },false);
 
+<body>
+
+    <form>
+        <div class="form-group">
+            <p class="description">Please Enter Your Tracking Number.</p>
+
+            <input type="text" id="tracking-input" class="input-text full-width"
+                placeholder="Enter your Tracking number(s)"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+        </div>
+        <br>
+        <button type="submit" id="register" class="full-width btn-medium">Track</button>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#register').prop('disabled', true);
+            $('#tracking-input').keyup(function () {
+                $('#register').prop('disabled', this.value === "");
+            })
+        });
     </script>
 </body>
+
 </html>
