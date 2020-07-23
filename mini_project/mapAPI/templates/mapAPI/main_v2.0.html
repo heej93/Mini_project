@@ -473,6 +473,7 @@
 
 </head>
 {% load static %}
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
   <nav class="navbar navbar-default navbar-fixed-top" style="height: 70px;">
@@ -487,10 +488,13 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar" style="margin-top: 10px;">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#login">로그인</a></li>
-          <li><a href="#signup">회원가입</a></li>
-          <li><a href="#mypage">My Page</a></li>
-
+          {% if request.session.user_id %}
+          <li><a data-toggle="modal" data-target="#myinfoModal" id="my_page">My Page</a></li>
+          <li><a id="logout">로그아웃</a></li>
+          {% else %}
+          <li><a data-toggle="modal" data-target="#loginModal">로그인</a></li>
+          <li><a data-toggle="modal" data-target="#joinModal">회원가입</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -499,7 +503,7 @@
   <div class="jumbotron text-center">
     <h5>댕댕이와 함께할 장소는 어디인가요?</h5>
     <h3>함개닷컴에서 반려견과 함께할 여정을 계획해보세요</h3>
-    
+
     <form onsubmit="searchPlaces(); return false;">
       <div class="search_location">
         <div class="row">
@@ -545,6 +549,127 @@
     </div>
   </div>
 
+  <!-- 인환 -->
+  <!-- 로그인 -->
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content col-sm-8 col-sm-offset-2">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">로그인</h4>
+        </div>
+        
+        <form action="{% url 'sign:login' %}" method="post">  
+            <div class="modal-body">
+                {% csrf_token %}
+                <label for="user_id">아이디</label>      
+                <input type="text" class="form-control " name="user_id"><br>
+                <label for="user_pw">비밀번호</label>
+                <input type="password" class="form-control" name="user_pw"><br>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="로그인">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 회원가입 -->
+  <div class="modal fade" id="joinModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content col-sm-8 col-sm-offset-2">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">회원가입</h4>
+        </div>
+        
+        <form action="{% url 'sign:join_post' %}" method="post">  
+            <div class="modal-body">
+                    {% csrf_token %}                  
+                    <label for="user_id">아이디</label>
+                    <input type="text" class="form-control" name="user_id"><br>
+                    <label for="user_pw">비밀번호</label>
+                    <input type="password" class="form-control" name="user_pw"><br>
+                    <label for="user_pw2">비밀번호 재확인</label>
+                    <input type="password" class="form-control" name="user_pw2"><br>
+                    <label for="user_email">이메일</label>
+                    <input type="email" class="form-control" name="user_email"><br>
+                    <label for="user_dog">반려견명</label>
+                    <input type="text" class="form-control" name="user_dog"><br>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="가입하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 내정보 -->
+  <div class="modal fade" id="myinfoModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content col-sm-8 col-sm-offset-2">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">회원정보</h4>
+        </div>
+        <form action="{% url 'sign:user_drop' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <label for="user_id">아이디</label>
+            <h1 name = "user_id" class="form-control">{{user.user_id}}</h1><br>
+            <label for="user_pw">비밀번호</label>
+            <h1 name = "user_pw" class="form-control">{{user.user_pw}}</h1><br>
+            <label for="user_email">이메일</label>
+            <h1 name = "user_email" class="form-control">{{user.user_email}}</h1><br>
+            <label for="user_dog">반려견명</label>
+            <h1 name = "user_dog" class="form-control">{{user.user_dog}}</h1><br>
+          </div>
+          <div class="modal-footer">  
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modiinfo" id="modi_info" data-dismiss="modal">정보수정</button>
+              <input type="submit" class="btn btn-warning" value="회원탈퇴">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정보수정 -->
+  <div class="modal fade" id="modiinfo" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content col-sm-8 col-sm-offset-2">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">회원정보</h4>
+        </div>   
+        <form action="{% url 'sign:modi_info' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <label for="user_id">아이디</label>
+            <input type="text" name = "user_id" class="form-control"><br>
+            <label for="user_pw">비밀번호</label>
+            <input type="password" name = "user_pw" class="form-control"><br>
+            <label for="user_email">이메일</label>
+            <input type="email" name = "user_email" class="form-control"><br>
+            <label for="user_dog">반려견명</label>
+            <input type="text" name = "user_dog" class="form-control"><br>
+          </div>
+          <div class="modal-footer">  
+            <input type="submit" class="btn btn-success" value="수정하기">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form> 
+      </div>
+    </div>
+  </div>
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -572,294 +697,288 @@
 
   <div id="clicks_show" class="container-fluid bg-grey">
 
-  <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
-    <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
-    <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
-  </div>
-  
+    <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
+      <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
+      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
+    </div>
 
-  <footer class="container-fluid text-center">
-    <a href="#myPage" title="To Top">
-      <span class="glyphicon glyphicon-chevron-up"></span>
-    </a>
-    <p>Website Made By KFQ_Bigdata_3조</p>
-  </footer>
 
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61a310f738f452fe0e606630bd69132&libraries=services,clusterer,drawing"></script>
-  <script>
-    // 마커를 담을 배열입니다
-    var markers = [];
+    <footer class="container-fluid text-center">
+      <a href="#myPage" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a>
+      <p>Website Made By KFQ_Bigdata_3조</p>
+    </footer>
 
-    // 클릭기록 저장용
-    var click_list = [];
+    <script type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61a310f738f452fe0e606630bd69132&libraries=services,clusterer,drawing"></script>
+    <script>
+      // 마커를 담을 배열입니다
+      var markers = [];
 
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-      mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-      };
+      // 클릭기록 저장용
+      var click_list = [];
 
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+        };
 
-    // 장소 검색 객체를 생성합니다
-    var ps = new kakao.maps.services.Places();
+      // 지도를 생성합니다    
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-    // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      // 장소 검색 객체를 생성합니다
+      var ps = new kakao.maps.services.Places();
 
-    var input_addr = "서울 강남구"; // 초기값
-    var input_cat = "애견카페"; // 초기값
-    // 키워드로 장소를 검색합니다
-    searchPlaces();
+      // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+      // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-    // 키워드 검색을 요청하는 함수입니다
-    function searchPlaces() {
-      input_addr = document.getElementById('search_location').value;
-      input_cat = document.getElementById('category').value;
-      if (!input_addr.replace(/^\s+|\s+$/g, '')) {
-        alert('주소가 입력되어야 합니다.');
-        return false;
-      }
+      var input_addr = "서울 강남구"; // 초기값
+      var input_cat = "애견카페"; // 초기값
+      // 키워드로 장소를 검색합니다
+      searchPlaces();
 
-      // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-      ps.keywordSearch(input_addr + " " + input_cat, placesSearchCB);
-    }
-
-    // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-    function placesSearchCB(data, status, pagination) {
-
-      if (status === kakao.maps.services.Status.OK) {
-
-        // var re = RegExp("." + input_addr + ".")
-        // for (var i = 0; i < data.length; i++) {
-        //   if (re.exec(data[i].address_name) == null) {
-        //     data.splice(i, 1);
-        //     i--;
-        //   }
-        // }
-
-        // console.log(data);
-        // console.log(pagination);
-
-        // 정상적으로 검색이 완료됐으면
-        // 검색 목록과 마커를 표출합니다
-        displayPlaces(data);
-
-        // 페이지 번호를 표출합니다
-        displayPagination(pagination);
-
-      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
-        alert('검색 결과가 존재하지 않습니다.');
-        return;
-
-      } else if (status === kakao.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
-
-      }
-    }
-
-    // 검색 결과 목록과 마커를 표출하는 함수입니다
-    function displayPlaces(places) {
-
-      var listEl = document.getElementById('placesList'),
-        menuEl = document.getElementById('menu_wrap'),
-        fragment = document.createDocumentFragment(),
-        bounds = new kakao.maps.LatLngBounds(),
-        listStr = '';
-
-      // 검색 결과 목록에 추가된 항목들을 제거합니다
-      removeAllChildNods(listEl);
-
-      // 지도에 표시되고 있는 마커를 제거합니다
-      removeMarker();
-
-      for (var i = 0; i < places.length; i++) {
-
-        // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-          marker = addMarker(placePosition, i),
-          itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
-
-        ((marker, itemEl, data) => {
-          kakao.maps.event.addListener(marker, 'click', function () {
-            click_list.push(data);
-            console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-            console.log(data.place_name);
-            var clk_btns = document.querySelector('#click_list');
-            clk_btns.innerHTML += `<button>X${data.place_name}</button>`;
-            }
-          );
-          itemEl.addEventListener("click",()=>{
-            click_list.push(data);
-            console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-            console.log(data.place_name);
-            console.log(data.place_name);
-            var clk_btns = document.querySelector('#click_list');
-            clk_btns.innerHTML += `<button>X ${data.place_name}</button>`;
-            },false);      
-        })(marker, itemEl, places[i]);
-
-        fragment.appendChild(itemEl);
-      }
-
-      // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-      listEl.appendChild(fragment);
-      menuEl.scrollTop = 0;
-
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-      map.setBounds(bounds);
-    }
-
-    // 검색결과 항목을 Element로 반환하는 함수입니다
-    function getListItem(index, places) {
-      
-      var el = document.createElement('li'),
-        itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
-          '<div class="info">' +
-          '   <h5>' + places.place_name + '</h5>';
-
-      if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-          '   <span class="jibun gray">' + places.address_name + '</span>';
-      } else {
-        itemStr += '    <span>' + places.address_name + '</span>';
-      }
-
-      itemStr += '  <span class="tel">' + places.phone + '</span>' +
-        '</div>';
-
-      el.innerHTML = itemStr;
-      el.className = 'item';
-
-      return el;
-    }
-
-    // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-    function addMarker(position, idx, title) {
-      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-        imgOptions = {
-          spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-          spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-          offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-        },
-        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-        marker = new kakao.maps.Marker({
-          position: position, // 마커의 위치
-          image: markerImage
-        });
-
-      marker.setMap(map); // 지도 위에 마커를 표출합니다
-      markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-
-      return marker;
-    }
-
-    // 지도 위에 표시되고 있는 마커를 모두 제거합니다
-    function removeMarker() {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-      }
-      markers = [];
-    }
-
-    // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-    function displayPagination(pagination) {
-      var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i;
-
-      // 기존에 추가된 페이지번호를 삭제합니다
-      while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild(paginationEl.lastChild);
-      }
-
-      for (i = 1; i <= pagination.last; i++) {
-        var el = document.createElement('a');
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i === pagination.current) {
-          el.className = 'on';
-        } else {
-          el.onclick = (function (i) {
-            return function () {
-              pagination.gotoPage(i);
-            }
-          })(i);
+      // 키워드 검색을 요청하는 함수입니다
+      function searchPlaces() {
+        input_addr = document.getElementById('search_location').value;
+        input_cat = document.getElementById('category').value;
+        if (!input_addr.replace(/^\s+|\s+$/g, '')) {
+          alert('주소가 입력되어야 합니다.');
+          return false;
         }
 
-        fragment.appendChild(el);
+        // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+        ps.keywordSearch(input_addr + " " + input_cat, placesSearchCB);
       }
-      paginationEl.appendChild(fragment);
-    }
 
-    // // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-    // // 인포윈도우에 장소명을 표시합니다
-    // function displayInfowindow(marker, title) {
-    //   // var content = '<div style="padding:5px;z-index:1;">' + title  + '</div>';
-    //   var content = '<div style="padding:5px;z-index:1;" id="link_test">' + title + '</div>';
-    //   infowindow.setContent(content);
-    //   infowindow.open(map, marker);
-    // }
+      // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+      function placesSearchCB(data, status, pagination) {
 
-    // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-    function removeAllChildNods(el) {
-      while (el.hasChildNodes()) {
-        el.removeChild(el.lastChild);
+        if (status === kakao.maps.services.Status.OK) {
+
+          // var re = RegExp("." + input_addr + ".")
+          // for (var i = 0; i < data.length; i++) {
+          //   if (re.exec(data[i].address_name) == null) {
+          //     data.splice(i, 1);
+          //     i--;
+          //   }
+          // }
+
+          // console.log(data);
+          // console.log(pagination);
+
+          // 정상적으로 검색이 완료됐으면
+          // 검색 목록과 마커를 표출합니다
+          displayPlaces(data);
+
+          // 페이지 번호를 표출합니다
+          displayPagination(pagination);
+
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+          alert('검색 결과가 존재하지 않습니다.');
+          return;
+
+        } else if (status === kakao.maps.services.Status.ERROR) {
+
+          alert('검색 결과 중 오류가 발생했습니다.');
+          return;
+
+        }
       }
-    }
+      
+      // 검색 결과 목록과 마커를 표출하는 함수입니다
+      function displayPlaces(places) {
 
-    /******************************************************************************************/
+        var listEl = document.getElementById('placesList'),
+          menuEl = document.getElementById('menu_wrap'),
+          fragment = document.createDocumentFragment(),
+          bounds = new kakao.maps.LatLngBounds(),
+          listStr = '';
+
+        // 검색 결과 목록에 추가된 항목들을 제거합니다
+        removeAllChildNods(listEl);
+
+        // 지도에 표시되고 있는 마커를 제거합니다
+        removeMarker();
+
+        for (var i = 0; i < places.length; i++) {
+
+          // 마커를 생성하고 지도에 표시합니다
+          var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+            marker = addMarker(placePosition, i),
+            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+
+          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+          // LatLngBounds 객체에 좌표를 추가합니다
+          bounds.extend(placePosition);
 
 
 
+          ((marker, itemEl, data) => {
+            place_data = data;
+            kakao.maps.event.addListener(marker, 'click', () => {
+              pushClickList(data)
+            });
+            itemEl.addEventListener("click", () => {
+              pushClickList(data);
+            }, false);
+          })(marker, itemEl, places[i]);
 
-  </script>
-  <script>
-    $(document).ready(function () {
-      // Add smooth scrolling to all links in navbar + footer link
-      $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
-        // Make sure this.hash has a value before overriding default behavior
-        if (this.hash !== "") {
-          // Prevent default anchor click behavior
-          event.preventDefault();
+          fragment.appendChild(itemEl);
+        }
 
-          // Store hash
-          var hash = this.hash;
+        // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+        listEl.appendChild(fragment);
+        menuEl.scrollTop = 0;
 
-          // Using jQuery's animate() method to add smooth page scroll
-          // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-          $('html, body').animate({
-            scrollTop: $(hash).offset().top
-          }, 900, function () {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+      }
 
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            window.location.hash = hash;
+      function pushClickList(data){
+        click_list.push(data);
+        console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
+        console.log(data.place_name);
+        var clk_btns = document.querySelector('#click_list');
+        clk_btns.innerHTML += `<button id="del_id${data.id}">X ${data.place_name}</button>`;
+        
+      }
+
+      // 검색결과 항목을 Element로 반환하는 함수입니다
+      function getListItem(index, places) {
+
+        var el = document.createElement('li'),
+          itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+            '<div class="info">' +
+            '   <h5>' + places.place_name + '</h5>';
+
+        if (places.road_address_name) {
+          itemStr += '    <span>' + places.road_address_name + '</span>' +
+            '   <span class="jibun gray">' + places.address_name + '</span>';
+        } else {
+          itemStr += '    <span>' + places.address_name + '</span>';
+        }
+
+        itemStr += '  <span class="tel">' + places.phone + '</span>' +
+          '</div>';
+
+        el.innerHTML = itemStr;
+        el.className = 'item';
+
+        return el;
+      }
+
+      // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+      function addMarker(position, idx, title) {
+        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+          imgOptions = {
+            spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+            spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          },
+          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+          marker = new kakao.maps.Marker({
+            position: position, // 마커의 위치
+            image: markerImage
           });
-        } // End if
-      });
 
-      $(window).scroll(function () {
-        $(".slideanim").each(function () {
-          var pos = $(this).offset().top;
+        marker.setMap(map); // 지도 위에 마커를 표출합니다
+        markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
-          var winTop = $(window).scrollTop();
-          if (pos < winTop + 600) {
-            $(this).addClass("slide");
+        return marker;
+      }
+
+      // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+      function removeMarker() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+
+      // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+      function displayPagination(pagination) {
+        var paginationEl = document.getElementById('pagination'),
+          fragment = document.createDocumentFragment(),
+          i;
+
+        // 기존에 추가된 페이지번호를 삭제합니다
+        while (paginationEl.hasChildNodes()) {
+          paginationEl.removeChild(paginationEl.lastChild);
+        }
+
+        for (i = 1; i <= pagination.last; i++) {
+          var el = document.createElement('a');
+          el.href = "#";
+          el.innerHTML = i;
+
+          if (i === pagination.current) {
+            el.className = 'on';
+          } else {
+            el.onclick = (function (i) {
+              return function () {
+                pagination.gotoPage(i);
+              }
+            })(i);
           }
+
+          fragment.appendChild(el);
+        }
+        paginationEl.appendChild(fragment);
+      }
+
+      // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+      function removeAllChildNods(el) {
+        while (el.hasChildNodes()) {
+          el.removeChild(el.lastChild);
+        }
+      }
+
+      /******************************************************************************************/
+
+
+
+
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+          // Make sure this.hash has a value before overriding default behavior
+          if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+              scrollTop: $(hash).offset().top
+            }, 900, function () {
+
+              // Add hash (#) to URL when done scrolling (default click behavior)
+              window.location.hash = hash;
+            });
+          } // End if
+        });
+
+        $(window).scroll(function () {
+          $(".slideanim").each(function () {
+            var pos = $(this).offset().top;
+
+            var winTop = $(window).scrollTop();
+            if (pos < winTop + 600) {
+              $(this).addClass("slide");
+            }
+          });
         });
       });
-    })
+
     $('#search').click(function () {
       $('#search_result').show();
     })
@@ -872,6 +991,40 @@
     $('#search').click(function () {
       $('#buttons_result').show();
     })
+
+    $('#logout').click(() => {
+      $.ajax({
+        url : "/sign/logout/",
+        success: function (data) {
+          location = '/map/main/';
+        },  
+      })
+    })
+
+    $('#my_page').click(() => {
+      $.ajax({
+        url : "/sign/modi_info/",
+        success: function (data) {
+          $('h1[name=user_id]').text(data.user_id);
+          $('h1[name=user_pw]').text(data.user_pw);
+          $('h1[name=user_email]').text(data.user_email);
+          $('h1[name=user_dog]').text(data.user_dog);
+        },  
+      })
+    })
+    $('#modi_info').click(() => {
+      $.ajax({
+        url : "/sign/modi_info/",
+        success: function (data) {
+          $('input[name=user_id]').val(data.user_id);
+          $('input[name=user_pw]').val(data.user_pw);
+          $('input[name=user_email]').val(data.user_email);
+          $('input[name=user_dog]').val(data.user_dog);
+        },  
+      })
+    })
+
+
   </script>
 
 </body>
