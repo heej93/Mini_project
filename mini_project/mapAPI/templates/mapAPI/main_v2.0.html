@@ -13,10 +13,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- kakao API 사용을 위한 style -->
   <style>
-    #link_test {
-      font-size: 10px;
-      text-align: center;
-    }
 
     .map_wrap,
     .map_wrap * {
@@ -510,14 +506,16 @@
           <div class="col-xs-3 col-sm-offset-2">
             <label for="search_location"></label>
             <input type="text" class="form-control input-lg" name="search_location" id="search_location" value="서울 강남구"
-              placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on" style="margin-left: 80px">
+              placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on"
+              style="margin-left: 80px">
             <i class="locate-me loading"></i>
           </div>
 
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
-              <select class="form-control input-lg" id="category" value="카페" placeholder="카테고리" style="margin-left: 70px">
+              <select class="form-control input-lg" id="category" value="카페" placeholder="카테고리"
+                style="margin-left: 70px">
                 <option value="애견카페">Category</option>
                 <option value="애견카페">-----------------------------------------</option>
                 <option value="애견카페">카페</option>
@@ -531,7 +529,7 @@
           <div class="search" style="float:left">
             <div class="col-xs-4"></div>
             <label for="search"></label>
-            <button type="submit" class="btn btn-danger btn-lg" id="search"  style="margin-left: 60px"> 검 색 </button>
+            <button type="submit" class="btn btn-danger btn-lg" id="search" style="margin-left: 60px"> 검 색 </button>
           </div>
         </div>
       </div>
@@ -559,19 +557,19 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">로그인</h4>
         </div>
-        
-        <form action="{% url 'sign:login' %}" method="post">  
-            <div class="modal-body">
-                {% csrf_token %}
-                <label for="user_id">아이디</label>      
-                <input type="text" class="form-control " name="user_id"><br>
-                <label for="user_pw">비밀번호</label>
-                <input type="password" class="form-control" name="user_pw"><br>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-success" value="로그인">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+
+        <form action="{% url 'sign:login' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <label for="user_id">아이디</label>
+            <input type="text" class="form-control " name="user_id"><br>
+            <label for="user_pw">비밀번호</label>
+            <input type="password" class="form-control" name="user_pw"><br>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-success" value="로그인">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
         </form>
       </div>
     </div>
@@ -586,25 +584,25 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원가입</h4>
         </div>
-        
-        <form action="{% url 'sign:join_post' %}" method="post">  
-            <div class="modal-body">
-                    {% csrf_token %}                  
-                    <label for="user_id">아이디</label>
-                    <input type="text" class="form-control" name="user_id"><br>
-                    <label for="user_pw">비밀번호</label>
-                    <input type="password" class="form-control" name="user_pw"><br>
-                    <label for="user_pw2">비밀번호 재확인</label>
-                    <input type="password" class="form-control" name="user_pw2"><br>
-                    <label for="user_email">이메일</label>
-                    <input type="email" class="form-control" name="user_email"><br>
-                    <label for="user_dog">반려견명</label>
-                    <input type="text" class="form-control" name="user_dog"><br>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-success" value="가입하기">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+
+        <form action="{% url 'sign:join_post' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <label for="user_id">아이디</label>
+            <input type="text" class="form-control" name="user_id"><br>
+            <label for="user_pw">비밀번호</label>
+            <input type="password" class="form-control" name="user_pw"><br>
+            <label for="user_pw2">비밀번호 재확인</label>
+            <input type="password" class="form-control" name="user_pw2"><br>
+            <label for="user_email">이메일</label>
+            <input type="email" class="form-control" name="user_email"><br>
+            <label for="user_dog">반려견명</label>
+            <input type="text" class="form-control" name="user_dog"><br>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-success" value="가입하기">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
         </form>
       </div>
     </div>
@@ -623,18 +621,19 @@
           <div class="modal-body">
             {% csrf_token %}
             <label for="user_id">아이디</label>
-            <h1 name = "user_id" class="form-control">{{user.user_id}}</h1><br>
+            <h1 name="user_id" class="form-control">{{user.user_id}}</h1><br>
             <label for="user_pw">비밀번호</label>
-            <h1 name = "user_pw" class="form-control">{{user.user_pw}}</h1><br>
+            <h1 name="user_pw" class="form-control">{{user.user_pw}}</h1><br>
             <label for="user_email">이메일</label>
-            <h1 name = "user_email" class="form-control">{{user.user_email}}</h1><br>
+            <h1 name="user_email" class="form-control">{{user.user_email}}</h1><br>
             <label for="user_dog">반려견명</label>
-            <h1 name = "user_dog" class="form-control">{{user.user_dog}}</h1><br>
+            <h1 name="user_dog" class="form-control">{{user.user_dog}}</h1><br>
           </div>
-          <div class="modal-footer">  
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modiinfo" id="modi_info" data-dismiss="modal">정보수정</button>
-              <input type="submit" class="btn btn-warning" value="회원탈퇴">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modiinfo" id="modi_info"
+              data-dismiss="modal">정보수정</button>
+            <input type="submit" class="btn btn-warning" value="회원탈퇴">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>
@@ -649,24 +648,24 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원정보</h4>
-        </div>   
+        </div>
         <form action="{% url 'sign:modi_info' %}" method="post">
           <div class="modal-body">
             {% csrf_token %}
             <label for="user_id">아이디</label>
-            <input type="text" name = "user_id" class="form-control"><br>
+            <input type="text" name="user_id" class="form-control"><br>
             <label for="user_pw">비밀번호</label>
-            <input type="password" name = "user_pw" class="form-control"><br>
+            <input type="password" name="user_pw" class="form-control"><br>
             <label for="user_email">이메일</label>
-            <input type="email" name = "user_email" class="form-control"><br>
+            <input type="email" name="user_email" class="form-control"><br>
             <label for="user_dog">반려견명</label>
-            <input type="text" name = "user_dog" class="form-control"><br>
+            <input type="text" name="user_dog" class="form-control"><br>
           </div>
-          <div class="modal-footer">  
+          <div class="modal-footer">
             <input type="submit" class="btn btn-success" value="수정하기">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-        </form> 
+        </form>
       </div>
     </div>
   </div>
@@ -687,13 +686,13 @@
   </div>
   <!-- </div>
    -->
-   <div class="row slideanim">
+  <div class="row slideanim">
     <div class="col-sm-4">
       <div id="click_list"></div>
     </div>
   </div>
 
-  
+
 
   <div id="clicks_show" class="container-fluid bg-grey">
 
@@ -765,9 +764,6 @@
           //   }
           // }
 
-          // console.log(data);
-          // console.log(pagination);
-
           // 정상적으로 검색이 완료됐으면
           // 검색 목록과 마커를 표출합니다
           displayPlaces(data);
@@ -787,7 +783,7 @@
 
         }
       }
-      
+
       // 검색 결과 목록과 마커를 표출하는 함수입니다
       function displayPlaces(places) {
 
@@ -814,8 +810,6 @@
           // LatLngBounds 객체에 좌표를 추가합니다
           bounds.extend(placePosition);
 
-
-
           ((marker, itemEl, data) => {
             place_data = data;
             kakao.maps.event.addListener(marker, 'click', () => {
@@ -837,13 +831,23 @@
         map.setBounds(bounds);
       }
 
-      function pushClickList(data){
+      function pushClickList(data) {
         click_list.push(data);
-        console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-        console.log(data.place_name);
         var clk_btns = document.querySelector('#click_list');
-        clk_btns.innerHTML += `<button id="del_id${data.id}">X ${data.place_name}</button>`;
-        
+        var del_button =  document.createElement('input');
+
+        del_button.type = "button";
+        del_button.id = "del_id" + data.id;
+        del_button.value = data.place_name;
+        clk_btns.appendChild(del_button);
+        ((button,data)=>{
+          button.addEventListener("click", () => {
+            var idx = click_list.indexOf(data);
+            if (idx > -1) click_list.splice(idx, 1);
+
+            clk_btns.removeChild(button)
+          }, false);
+        })(del_button,data);
       }
 
       // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -979,53 +983,53 @@
         });
       });
 
-    $('#search').click(function () {
-      $('#search_result').show();
-    })
-    // $('#search').click(function () {
-    //   $('#map_show').show();
-    // })
-    // $('#search').click(function () {
-    //   $('#click_list').show();
-  // 
-    $('#search').click(function () {
-      $('#buttons_result').show();
-    })
-
-    $('#logout').click(() => {
-      $.ajax({
-        url : "/sign/logout/",
-        success: function (data) {
-          location = '/map/main/';
-        },  
+      $('#search').click(function () {
+        $('#search_result').show();
       })
-    })
-
-    $('#my_page').click(() => {
-      $.ajax({
-        url : "/sign/modi_info/",
-        success: function (data) {
-          $('h1[name=user_id]').text(data.user_id);
-          $('h1[name=user_pw]').text(data.user_pw);
-          $('h1[name=user_email]').text(data.user_email);
-          $('h1[name=user_dog]').text(data.user_dog);
-        },  
+      // $('#search').click(function () {
+      //   $('#map_show').show();
+      // })
+      // $('#search').click(function () {
+      //   $('#click_list').show();
+      // 
+      $('#search').click(function () {
+        $('#buttons_result').show();
       })
-    })
-    $('#modi_info').click(() => {
-      $.ajax({
-        url : "/sign/modi_info/",
-        success: function (data) {
-          $('input[name=user_id]').val(data.user_id);
-          $('input[name=user_pw]').val(data.user_pw);
-          $('input[name=user_email]').val(data.user_email);
-          $('input[name=user_dog]').val(data.user_dog);
-        },  
+
+      $('#logout').click(() => {
+        $.ajax({
+          url: "/sign/logout/",
+          success: function (data) {
+            location = '/map/main/';
+          },
+        })
       })
-    })
+
+      $('#my_page').click(() => {
+        $.ajax({
+          url: "/sign/modi_info/",
+          success: function (data) {
+            $('h1[name=user_id]').text(data.user_id);
+            $('h1[name=user_pw]').text(data.user_pw);
+            $('h1[name=user_email]').text(data.user_email);
+            $('h1[name=user_dog]').text(data.user_dog);
+          },
+        })
+      })
+      $('#modi_info').click(() => {
+        $.ajax({
+          url: "/sign/modi_info/",
+          success: function (data) {
+            $('input[name=user_id]').val(data.user_id);
+            $('input[name=user_pw]').val(data.user_pw);
+            $('input[name=user_email]').val(data.user_email);
+            $('input[name=user_dog]').val(data.user_dog);
+          },
+        })
+      })
 
 
-  </script>
+    </script>
 
 </body>
 
