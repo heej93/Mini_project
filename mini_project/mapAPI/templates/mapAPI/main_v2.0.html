@@ -694,25 +694,6 @@
             }, false);
           })(marker, itemEl, places[i]);
 
-          // ((marker, itemEl, data) => {
-          //   kakao.maps.event.addListener(marker, 'click', function() {
-          //     click_list.push(data);
-          //     console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-          //     console.log(data.place_name);
-          //     var clk_btns = document.querySelector('#click_list');
-          //     clk_btns.innerHTML += `<button>X${data.place_name}</button>`;
-          //   });
-          //   itemEl.addEventListener("click", () => {
-          //     click_list.push(data);
-          //     console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-          //     console.log(data.place_name);
-          //     var clk_btns = document.querySelector('#click_list');
-          //     clk_btns.innerHTML += `<button>X ${data.place_name}</button>`;
-          //   }, false);
-          // })(marker, itemEl, places[i]);
-
-
-
           fragment.appendChild(itemEl);
         }
 
@@ -729,7 +710,8 @@
         console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
         console.log(data.place_name);
         var clk_btns = document.querySelector('#click_list');
-        clk_btns.innerHTML += `<button>X ${data.place_name}</button>`;
+        clk_btns.innerHTML += `<button id="del_id${data.id}">X ${data.place_name}</button>`;
+        
       }
 
       // 검색결과 항목을 Element로 반환하는 함수입니다
