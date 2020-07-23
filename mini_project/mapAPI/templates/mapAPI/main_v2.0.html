@@ -472,7 +472,7 @@
   </style>
 
 </head>
-
+{% load static %}
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -483,7 +483,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage"><img src="./logo.jpg" alt="logo"></a>
+        <a class="navbar-brand" href="#myPage"><img src="{% static 'mapAPI/logo.jpg' %}" width="150" alt="logo"></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
@@ -669,7 +669,7 @@
   </div>
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:50%;height:100%;position:relative;overflow:hidden;" margin-left ="5px"></div>
 
     <div id="menu_wrap" class="container-fluid bg-grey">
       <div class="option">
@@ -682,8 +682,11 @@
       <div id="pagination"></div>
     </div>
   </div>
-  
+  <!-- </div>
+   -->
   <div id="click_list"></div>
+
+  <div id="clicks_show" class="container-fluid bg-grey">
 
   <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
     <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
@@ -806,11 +809,19 @@
           kakao.maps.event.addListener(marker, 'click', function () {
             click_list.push(data);
             console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-          });
+            console.log(data.place_name);
+            var clk_btns = document.querySelector('#click_list');
+            clk_btns.innerHTML += `<button>X${data.place_name}</button>`;
+            }
+          );
           itemEl.addEventListener("click",()=>{
             click_list.push(data);
             console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
-          },false);      
+            console.log(data.place_name);
+            console.log(data.place_name);
+            var clk_btns = document.querySelector('#click_list');
+            clk_btns.innerHTML += `<button>X ${data.place_name}</button>`;
+            },false);      
         })(marker, itemEl, places[i]);
 
         fragment.appendChild(itemEl);
@@ -969,7 +980,7 @@
       $('#search_result').show();
     })
     // $('#search').click(function () {
-    //   $('#map_wrap').show();
+    //   $('#map_show').show();
     // })
     // $('#search').click(function () {
     //   $('#click_list').show();
