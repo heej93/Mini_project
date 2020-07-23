@@ -245,7 +245,7 @@
     }
 
     .jumbotron {
-      background-color: #f4511e;
+      background-color: #2C3C5B;
       color: #fff;
       padding: 95px 30px;
 
@@ -258,6 +258,8 @@
 
     .container-fluid2 {
       padding: 1px 50px;
+      font-family: 나눔바른고딕;
+      font-size: 20px;
     }
 
     .margin {
@@ -278,17 +280,17 @@
     }
 
     .bg-orange {
-      background-color: #f4511e;
+      background-color: #2C3C5B;
       color: #fff;
     }
 
     .logo-small {
-      color: #f4511e;
+      color: #2C3C5B;
       font-size: 50px;
     }
 
     .logo {
-      color: #f4511e;
+      color: #2C3C5B;
       font-size: 200px;
     }
 
@@ -307,15 +309,15 @@
     .carousel-control.right,
     .carousel-control.left {
       background-image: none;
-      color: #f4511e;
+      color: #2C3C5B;
     }
 
     .carousel-indicators li {
-      border-color: #f4511e;
+      border-color: #2C3C5B;
     }
 
     .carousel-indicators li.active {
-      background-color: #f4511e;
+      background-color: #2C3C5B;
     }
 
     .item h4 {
@@ -331,7 +333,7 @@
     }
 
     .panel {
-      border: 1px solid #f4511e;
+      border: 1px solid #2C3C5B;
       border-radius: 0 !important;
       transition: box-shadow 0.5s;
     }
@@ -341,14 +343,14 @@
     }
 
     .panel-footer .btn:hover {
-      border: 1px solid #f4511e;
+      border: 1px solid #2C3C5B;
       background-color: #fff !important;
-      color: #f4511e;
+      color: #2C3C5B;
     }
 
     .panel-heading {
       color: #fff !important;
-      background-color: #f4511e !important;
+      background-color: #2C3C5B !important;
       padding: 25px;
       border-bottom: 1px solid transparent;
       border-top-left-radius: 0px;
@@ -372,13 +374,13 @@
 
     .panel-footer .btn {
       margin: 15px 0;
-      background-color: #f4511e;
+      background-color: #2C3C5B;
       color: #fff;
     }
 
     .navbar {
       margin-bottom: 0;
-      background-color: #f4511e;
+      background-color: #FFFFFF;
       z-index: 9999;
       border: 0;
       font-size: 12px !important;
@@ -390,12 +392,12 @@
 
     .navbar li a,
     .navbar .navbar-brand {
-      color: #fff !important;
+      color: #2C3C5B !important;
     }
 
     .navbar-nav li a:hover,
     .navbar-nav li.active a {
-      color: #f4511e !important;
+      color: #2C3C5B !important;
       background-color: #fff !important;
     }
 
@@ -407,7 +409,7 @@
     footer .glyphicon {
       font-size: 20px;
       margin-bottom: 20px;
-      color: #f4511e;
+      color: #2C3C5B;
     }
 
     .slideanim {
@@ -478,9 +480,9 @@
 </head>
 {% load static %}
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-target="#myScrollspy" data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-  <nav class="navbar navbar-default navbar-fixed-top" style="height: 70px;">
+  <nav class="navbar navbar-default navbar-fixed-top" style="height: 70px;" id="menu-fixed">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -488,9 +490,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage"><img src="{% static 'mapAPI/logo.jpg' %}" width="120" alt="logo"></a>
+        <a class="navbar-brand" href="#myPage"><img src="{% static 'mapAPI/logo_mint.jpg' %}" width="160" alt="logo"></a>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar" style="margin-top: 10px;">
+      <div class="collapse navbar-collapse" id="myNavbar" style="margin-top: 10px; font-family: 나눔바른고딕;">
         <ul class="nav navbar-nav navbar-right">
           {% if request.session.user_id %}
           <li><a data-toggle="modal" data-target="#myinfoModal" id="my_page">My Page</a></li>
@@ -507,19 +509,19 @@
 
   <div class="jumbotron text-center">
     <h5>댕댕이와 함께할 장소는 어디인가요?</h5>
-    <h3>함개닷컴에서 반려견과 함께할 여정을 계획해보세요</h3>
+    <h3>함께가개에서 반려견과 함께할 여정을 계획해보세요</h3>
 
     <form onsubmit="searchPlaces(); return false;">
       <div class="search_location">
         <div class="row">
           <div class="col-xs-3 col-sm-offset-2">
             <label for="search_location"></label>
-            <input type="text" class="form-control input-lg" name="search_location" id="search_location" value="서울 강남구"
+            <input type="text" class="form-control input-lg" name="search_location" id="search_location"
               placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on"
               style="margin-left: 80px;font-family: 나눔바른고딕 Light;">
             <i class="locate-me loading"></i>
           </div>
-
+          
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
@@ -538,10 +540,8 @@
           <div class="search" style="float:left">
             <div class="col-xs-4"></div>
             <label for="search"></label>
-            <a href="tabContent1">
-              <button type="submit" class="btn btn-danger btn-lg" id="search" style="margin-left: 60px"> 검 색 </button>
-            </a>
-            </div>
+            <button type="submit" class="btn btn-danger btn-lg" id="search" style="margin-left: 60px"> 검 색 </button>
+          </div>
         </div>
       </div>
     </form>
@@ -551,7 +551,7 @@
 
   <div id="search_result" style="display:none;">
     <!-- Container (About Section) -->
-    <div id="#tabcontent1" class="container-fluid2 text-center">
+    <div id="result_title" class="container-fluid2 text-center">
       <h2>마음에 드는 장소를 선택해주세요
         <hr>
       </h2>
@@ -563,7 +563,7 @@
   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;font-family: 나눔바른고딕;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">로그인</h4>
@@ -590,7 +590,7 @@
   <div class="modal fade" id="joinModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;font-family: 나눔바른고딕;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원가입</h4>
@@ -623,7 +623,7 @@
   <div class="modal fade" id="myinfoModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;font-family: 나눔바른고딕;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원정보</h4>
@@ -655,7 +655,7 @@
   <div class="modal fade" id="modiinfo" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;font-family: 나눔바른고딕;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원정보</h4>
@@ -680,6 +680,9 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -710,10 +713,12 @@
 
 
   <div id="buttons_result" class="container-fluid" style="display:none;">
-    <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto">추가 행선지
-      검색</button>
-    <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
-      style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
+    <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto;font-family: 나눔바른고딕 Light;">다른 카테고리 검색하기</button>
+    <form action="">
+      <input type="hidden" value=click_list>
+      <button type="submit" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
+      style="width: 900px;margin:0 auto;margin-top: 10px;font-family: 나눔바른고딕 Light;">선택한 장소들의 최적 경로 찾기</button>
+    </form>
   </div>
 
 
@@ -751,6 +756,7 @@
     var input_addr = "서울 강남구"; // 초기값
     var input_cat = "애견카페"; // 초기값
     // 키워드로 장소를 검색합니다
+    
     searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
@@ -758,7 +764,6 @@
       input_addr = document.getElementById('search_location').value;
       input_cat = document.getElementById('category').value;
       if (!input_addr.replace(/^\s+|\s+$/g, '')) {
-        alert('주소가 입력되어야 합니다.');
         return false;
       }
 
@@ -847,16 +852,28 @@
     }
 
     function pushClickList(data) {
+      if (click_list.length >= 7) {
+        alert("오늘 안에 여기를 다 도시려고요? 못해요!");
+        return false;
+      }
+      if (click_list.indexOf(data) != -1) {
+        alert("이미 가기로 했어요. 다른 곳을 알아보세요!");
+        return false;
+      }
+      var scrollPosition = $('#blank3').offset().top;
+      $('html, body').stop().animate( { scrollTop : scrollPosition-80}, 600 );
+    
+
       click_list.push(data);
       var clk_btns = document.querySelector('#click_list');
       var del_button = document.createElement('input');
 
       del_button.type = "button";
       del_button.id = "del_id" + data.id;
-      del_button.value = data.place_name +" " + " " + "X" + " " ; 
+      del_button.value = data.place_name + " " + " " + "X" + " ";
       del_button.className = "btn btn-default btn-lg padding btn-font"
-  
-      
+
+
       clk_btns.appendChild(del_button);
       ((button, data) => {
         button.addEventListener("click", () => {
@@ -965,8 +982,14 @@
 
 
   </script>
-  <script>
+  <script> 
     $(document).ready(function () {
+      $('#search').prop('disabled', true);
+      $('#search_location').keyup(function () {
+        $('#search').prop('disabled', this.value === "");
+      })
+
+
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
         // Make sure this.hash has a value before overriding default behavior
@@ -1010,16 +1033,18 @@
     $('#search').click(function () {
       $('#buttons_result').show();
     })
+    
+    
     //스크롤 이동
     $('#search').click(function () {
-      $('#map_wrap').scrollIntoView(true);
+      var scrollPosition = $('#result_title').offset().top;
+      $('html, body').stop().animate( { scrollTop : scrollPosition-80 }, 600 );
     })
-    // btnArr[i].addEventListener('click',function(e){ e.preventDefault(); document.querySelector('.box' + (i + 1)).scrollIntoView(true); });
+    $('#add1').click(function () {
+      $('html, body').stop().animate( { scrollTop : 0 }, 600 );
+    })
     
-    
-    
-    
-    //로그인 
+    //로그인
     $('#logout').click(() => {
       $.ajax({
         url: "/sign/logout/",
