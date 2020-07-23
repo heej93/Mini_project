@@ -514,12 +514,12 @@
         <div class="row">
           <div class="col-xs-3 col-sm-offset-2">
             <label for="search_location"></label>
-            <input type="text" class="form-control input-lg" name="search_location" id="search_location" value="서울 강남구"
+            <input type="text" class="form-control input-lg" name="search_location" id="search_location"
               placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on"
               style="margin-left: 80px;font-family: 나눔바른고딕 Light;">
             <i class="locate-me loading"></i>
           </div>
-
+          
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
@@ -678,6 +678,9 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -711,9 +714,9 @@
     <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto">추가 행선지
       검색</button>
     <form action="">
-    <input type="hidden" value=click_list>
+      <input type="hidden" value=click_list>
       <button type="submit" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
-      style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
+        style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
     </form>
   </div>
 
@@ -759,7 +762,6 @@
       input_addr = document.getElementById('search_location').value;
       input_cat = document.getElementById('category').value;
       if (!input_addr.replace(/^\s+|\s+$/g, '')) {
-        alert('주소가 입력되어야 합니다.');
         return false;
       }
 
@@ -863,10 +865,10 @@
 
       del_button.type = "button";
       del_button.id = "del_id" + data.id;
-      del_button.value = data.place_name +" " + " " + "X" + " " ; 
+      del_button.value = data.place_name + " " + " " + "X" + " ";
       del_button.className = "btn btn-default btn-lg padding btn-font"
-  
-      
+
+
       clk_btns.appendChild(del_button);
       ((button, data) => {
         button.addEventListener("click", () => {
@@ -975,8 +977,14 @@
 
 
   </script>
-  <script>
+  <script> 
     $(document).ready(function () {
+      $('#search').prop('disabled', true);
+      $('#search_location').keyup(function () {
+        $('#search').prop('disabled', this.value === "");
+      })
+
+
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
         // Make sure this.hash has a value before overriding default behavior
