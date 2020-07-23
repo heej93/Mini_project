@@ -478,7 +478,7 @@
 </head>
 {% load static %}
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-target="#myScrollspy" data-offset="60">
 
   <nav class="navbar navbar-default navbar-fixed-top" style="height: 70px;">
     <div class="container">
@@ -538,8 +538,10 @@
           <div class="search" style="float:left">
             <div class="col-xs-4"></div>
             <label for="search"></label>
-            <button type="submit" class="btn btn-danger btn-lg" id="search" style="margin-left: 60px"> 검 색 </button>
-          </div>
+            <a href="tabContent1">
+              <button type="submit" class="btn btn-danger btn-lg" id="search" style="margin-left: 60px"> 검 색 </button>
+            </a>
+            </div>
         </div>
       </div>
     </form>
@@ -549,7 +551,7 @@
 
   <div id="search_result" style="display:none;">
     <!-- Container (About Section) -->
-    <div id="result_title" class="container-fluid2 text-center">
+    <div id="#tabcontent1" class="container-fluid2 text-center">
       <h2>마음에 드는 장소를 선택해주세요
         <hr>
       </h2>
@@ -1008,7 +1010,16 @@
     $('#search').click(function () {
       $('#buttons_result').show();
     })
-
+    //스크롤 이동
+    $('#search').click(function () {
+      $('#map_wrap').scrollIntoView(true);
+    })
+    // btnArr[i].addEventListener('click',function(e){ e.preventDefault(); document.querySelector('.box' + (i + 1)).scrollIntoView(true); });
+    
+    
+    
+    
+    //로그인 
     $('#logout').click(() => {
       $.ajax({
         url: "/sign/logout/",
