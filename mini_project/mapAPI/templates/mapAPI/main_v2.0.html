@@ -710,8 +710,11 @@
   <div id="buttons_result" class="container-fluid" style="display:none;">
     <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto">추가 행선지
       검색</button>
-    <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
+    <form action="">
+    <input type="hidden" value=click_list>
+      <button type="submit" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
       style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
+    </form>
   </div>
 
 
@@ -845,6 +848,15 @@
     }
 
     function pushClickList(data) {
+      if (click_list.length >= 7) {
+        alert("오늘 안에 여기를 다 도시려고요? 못해요!");
+        return false;
+      }
+      if (click_list.indexOf(data) != -1) {
+        alert("이미 가기로 했어요. 다른 곳을 알아보세요!");
+        return false;
+      }
+
       click_list.push(data);
       var clk_btns = document.querySelector('#click_list');
       var del_button = document.createElement('input');
