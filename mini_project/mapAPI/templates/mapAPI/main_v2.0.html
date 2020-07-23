@@ -381,7 +381,7 @@
       line-height: 1.42857143 !important;
       letter-spacing: 4px;
       border-radius: 0;
-      font-family: Montserrat, sans-serif;
+      font-family: 나눔바른고딕;
     }
 
     .navbar li a,
@@ -494,6 +494,7 @@
           {% else %}
           <li><a data-toggle="modal" data-target="#loginModal">로그인</a></li>
           <li><a data-toggle="modal" data-target="#joinModal">회원가입</a></li>
+          
           {% endif %}
         </ul>
       </div>
@@ -510,16 +511,16 @@
           <div class="col-xs-3 col-sm-offset-2">
             <label for="search_location"></label>
             <input type="text" class="form-control input-lg" name="search_location" id="search_location" value="서울 강남구"
-              placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on" style="margin-left: 80px">
+              placeholder="주소 (ex. 서울 강남구)" value="" class="pac-target-input" autocomplete="on" style="margin-left: 80px;font-family: 나눔바른고딕 Light;">
             <i class="locate-me loading"></i>
           </div>
 
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
-              <select class="form-control input-lg" id="category" value="카페" placeholder="카테고리" style="margin-left: 70px">
+              <select class="form-control input-lg" id="category" value="카페" placeholder="카테고리" style="margin-left: 70px;font-family: 나눔바른고딕 Light;">
                 <option value="애견카페">Category</option>
-                <option value="애견카페">-----------------------------------------</option>
+                <option value="애견카페">---------------------------------------</option>
                 <option value="애견카페">카페</option>
                 <option value="애견동반식당">음식점</option>
                 <option value="동물병원">병원</option>
@@ -538,7 +539,7 @@
     </form>
   </div>
 
-  <div id="blank" class="container-fluid2 text-center"></div>
+  <div id="blank" class="container-fluid2 text-center" style="height: 300px"></div>
 
   <div id="search_result" style="display:none;">
     <!-- Container (About Section) -->
@@ -554,14 +555,14 @@
   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">로그인</h4>
         </div>
         
-        <form action="{% url 'sign:login' %}" method="post">  
-            <div class="modal-body">
+        <form action="{% url 'sign:login' %}"  method="post">  
+            <div class="modal-body" >
                 {% csrf_token %}
                 <label for="user_id">아이디</label>      
                 <input type="text" class="form-control " name="user_id"><br>
@@ -581,7 +582,7 @@
   <div class="modal fade" id="joinModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원가입</h4>
@@ -614,7 +615,7 @@
   <div class="modal fade" id="myinfoModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원정보</h4>
@@ -645,7 +646,7 @@
   <div class="modal fade" id="modiinfo" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content col-sm-8 col-sm-offset-2">
+      <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">회원정보</h4>
@@ -685,21 +686,24 @@
       <div id="pagination"></div>
     </div>
   </div>
-  <!-- </div>
-   -->
-   <div class="row slideanim">
-    <div class="col-sm-4">
-      <div id="click_list"></div>
-    </div>
+  <div id="blank2" class="container-fluid2 text-center" style="height: 100px">
   </div>
 
-  
+  <div id="blank3" class="container-fluid2 text-center" style="height: 80px">
+    <h2 style="font-size: 10; font-family: 나눔바른고딕; ">선택하신 장소
+      <hr>
+    </h2>
+  </div>
 
-  <div id="clicks_show" class="container-fluid bg-grey">
+  <div class="container-fluid bg-grey" style="width: 1070px;height: 5px;">
+   
+    <div id="click_list"></div>
+  </div>
 
-    <div id="buttons_result" class="container-fluid bg-grey" style="display:none;">
-      <button type="button" class="btn btn-default btn-block btn-lg" id="add1">추가 행선지 검색</button>
-      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1">전체 경로 길찾기</button>
+
+    <div id="buttons_result" class="container-fluid" style="display:none;">
+      <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto" >추가 행선지 검색</button>
+      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1" style="width: 900px;margin:0 auto;margin-top: 10px;">전체 경로 길찾기</button>
     </div>
 
 
@@ -842,7 +846,7 @@
         console.log(click_list, "리스트 잘 들어갔는지 확인해주세요");
         console.log(data.place_name);
         var clk_btns = document.querySelector('#click_list');
-        clk_btns.innerHTML += `<button id="del_id${data.id}">X ${data.place_name}</button>`;
+        clk_btns.innerHTML += `<button id="del_id${data.id}">&nbsp;${data.place_name}&nbsp;&nbsp;&nbspX&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
         
       }
 
@@ -978,17 +982,14 @@
           });
         });
       });
-
+//화면 숨김, 보이기
+    $('#search').click(function () {
+      $('#blank').hide();
+    })
     $('#search').click(function () {
       $('#search_result').show();
     })
-    // $('#search').click(function () {
-    //   $('#map_show').show();
-    // })
-    // $('#search').click(function () {
-    //   $('#click_list').show();
-  // 
-    $('#search').click(function () {
+       $('#search').click(function () {
       $('#buttons_result').show();
     })
 
