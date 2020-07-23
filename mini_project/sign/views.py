@@ -49,10 +49,8 @@ def join(request):
 
 # 중복 아이디 확인
 def id_check(request):
-    print(11111)
     user_id = request.GET.get('user_id')
     try:
-        #중복 검사 실패
         user = User.objects.get(user_id = user_id)
     except:
         #중복 검사 성공
@@ -61,11 +59,24 @@ def id_check(request):
         overlap = "pass"
     else :
         overlap = "fail"
-    context = {'overlap' : overlap}
+    context = {'overlap': overlap}
+    return JsonResponse(context)   
+
+# 비밀번호 확인
+def pw_check(request):
+    print(request.GET.get('join_pw'))
+    print(request.GET.get('join_pw2'))
+    user_pw = request.GET.get('join_pw')
+    user_pw2 = request.GET.get('join_pw2')
+    if user_pw == user_pw2:
+        context ={'overlap' : 'pass'}
+    else :
+        context ={'overlap' : 'fail'}
     return JsonResponse(context)
 
 # 회원정보 확인
 def user_info(request):
+    print(request.session.get('user_id'))
     user_id = request.session.get('user_id')
     user = User.objects.get(user_id=user_id)
     return JsonResponse(model_to_dict(user), safe=False)
@@ -91,4 +102,9 @@ def user_drop(request):
     request.session.modified = True
     del request.session['user_id']
     return HttpResponseRedirect('/map/main/')
-    
+
+# click_list 보내기
+def click_list(request):
+    click_list = request.GET.get('click_list')
+    print(click_list)
+    return 
