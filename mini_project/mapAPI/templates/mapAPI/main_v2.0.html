@@ -1152,27 +1152,25 @@
           },
         })
         $('#close1').click(() => {
-          $.ajax({})})
+          $.ajax({})
+        })
 
-            $('#join_id').click(() => {
-              $.ajax({
-                url: "/sign/id_check/",
-                data: { 'user_id': $("[name=user_id]").val(), },
-                success: function (data) {
-                  if (data['overlap'] == "fail") {
-                    var p1 = document.getElementById("id_result")
-                    p1.innerHTML = "중복된 아이디입니다."
-                  } else {
-                    p1.innerHTML = "사용 가능한 아이디입니다."
-                  }
-                }
-              })
-            })
+        $('#join_id').click(() => {
+          $.ajax({
+            url: "/sign/id_check/",
+            data: { 'user_id': $("[name=user_id]").val(), },
+            success: function (data) {
+              if (data['overlap'] == "fail") {
+                var p1 = document.getElementById("id_result")
+                p1.innerHTML = "중복된 아이디입니다."
+              } else {
+                p1.innerHTML = "사용 가능한 아이디입니다."
+              }
+            }
           })
         })
+      })
+    })
   </script>
-
 </body>
-
 </html>
-<!-- 나는바뀌기싫어요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
