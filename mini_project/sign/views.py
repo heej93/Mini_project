@@ -32,16 +32,17 @@ def logout(request):
 
 # 회원가입
 def join(request):
+    print(1111)
     if request.method == 'POST':
         try:
-            user_id = request.POST.get('user_id')
+            user_id = request.POST.get('join_id')
             User.objects.get(user_id = user_id)
             return HttpResponseRedirect('/map/main/')
         except:
-            user_id = request.POST.get('user_id')
-            user_pw = request.POST.get('user_pw')
-            user_email = request.POST.get('user_email')
-            user_dog = request.POST.get('user_dog')
+            user_id = request.POST.get('join_id')
+            user_pw = request.POST.get('join_pw')
+            user_email = request.POST.get('join_email')
+            user_dog = request.POST.get('join_dog')
             User.objects.create(user_id=user_id, user_pw=user_pw, user_email=user_email, user_dog=user_dog)
             return HttpResponseRedirect('/map/main/')
     else:
@@ -64,8 +65,6 @@ def id_check(request):
 
 # 비밀번호 확인
 def pw_check(request):
-    print(request.GET.get('join_pw'))
-    print(request.GET.get('join_pw2'))
     user_pw = request.GET.get('join_pw')
     user_pw2 = request.GET.get('join_pw2')
     if user_pw == user_pw2:
@@ -76,7 +75,6 @@ def pw_check(request):
 
 # 회원정보 확인
 def user_info(request):
-    print(request.session.get('user_id'))
     user_id = request.session.get('user_id')
     user = User.objects.get(user_id=user_id)
     return JsonResponse(model_to_dict(user), safe=False)

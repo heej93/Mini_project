@@ -643,15 +643,14 @@
             <input type="password" class="form-control" name="join_pw2" id="user_pw2">
             <p id="pw_result"></p><br>
             <label for="user_email">이메일</label>
-            <input type="email" class="form-control" name="user_email"><br>
+            <input type="email" class="form-control" name="join_email"><br>
             <label for="user_dog">반려견명</label>
-            <input type="text" class="form-control" name="user_dog"><br>
+            <input type="text" class="form-control" name="join_dog"><br>
           </div>
           <div class="modal-footer">
             <input type="submit" class="btn bg-orange" value="회원가입">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-          <!-- >>>>>>> origin/kakao_API_hj -->
         </form>
       </div>
     </div>
@@ -760,7 +759,9 @@
   </div>
 
   <div class="container-fluid bg-grey" style="width: 1070px;">
-    <div id="click_list"></div>
+    <form>
+      <div id="click_list"></div>
+    </form>
   </div>
 
 
@@ -786,16 +787,15 @@
   <div id="c_location" class="container-fluid2 text-center" style="height: 80px;display: none;">
     <div class="row">
       <div class="col-xs-12">
-        <input type="text" class="form-control input-lg " name="search_location" id="search_location"
+        <input type="text" class="form-control input-lg " name="search_sp_text" id="search_sp_text"
           placeholder="도로명 주소 (ex. 서울 용산구 한강대로 405)" value="" class="pac-target-input" autocomplete="on"
           style="font-family: 나눔바른고딕 Light;width: 500px; display: inline-block;">
-        <button type="button" class="btn btn-lg bg-orange" id="c_search" style="font-family: 나눔바른고딕 Light;"
+        <button type="button" class="btn btn-lg bg-orange" name="search_sp_btn" id="search_sp_btn" style="font-family: 나눔바른고딕 Light;"
           data-toggle="modal" data-target="#naver"> 경로 찾기</button>
 
         <div class="c_search">
           <!-- <div class="col-xs-4"></div> -->
-          <!-- <label for="c_search"></label> -->
-
+            <!-- <label for="c_search"></label> -->            
         </div>
       </div>
     </div>
@@ -1066,11 +1066,17 @@
   </script>
   <script>
     $(document).ready(function () {
+      // 놀러갈 곳 검색 시 주소 텍스트 없으면 버튼을 비활성화
       $('#search').prop('disabled', true);
       $('#search_location').keyup(function () {
         $('#search').prop('disabled', this.value === "");
       })
 
+      // 출발지 검색 시 주소 텍스트 없으면 버튼을 비활성화
+      $('#search_sp_btn').prop('disabled', true);
+      $('#search_sp_text').keyup(function () {
+        $('#search_sp_btn').prop('disabled', this.value === "");
+      })
 
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
@@ -1136,10 +1142,8 @@
     })
 
     //click_list 보내기
-    $('#close1').click(() => {
-      let p1 = document.getElementById('show_clicklist')
-      a = document.createElement("p")
-      a.value = click_list
+    $('#close1').click(() => {  
+      a.value = click_list.
       p1.innerHTML = a
       // $.ajax({
       //   url : "/sign/click_list/",
@@ -1149,6 +1153,7 @@
       //   }
       // })
     })
+
     //로그인
     $('#logout').click(() => {
       $.ajax({
@@ -1170,6 +1175,7 @@
         },
       })
     })
+    
     //내정보 수정
     $('#modibutton').click(() => {
       $.ajax({

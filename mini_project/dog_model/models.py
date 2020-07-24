@@ -8,7 +8,6 @@ class Info_Delete(models.Model):
  pw = models.CharField(max_length=20)
  email = models.CharField(max_length=20)
 
-
 class Info_Update(models.Model):
  key = models.IntegerField(primary_key=True, default=0)
  id = models.CharField(max_length=20)
