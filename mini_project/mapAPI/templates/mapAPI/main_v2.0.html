@@ -643,9 +643,9 @@
             <input type="password" class="form-control" name="join_pw2" id="user_pw2">
             <p id="pw_result"></p><br>
             <label for="user_email">이메일</label>
-            <input type="email" class="form-control" name="user_email"><br>
+            <input type="email" class="form-control" name="join_email"><br>
             <label for="user_dog">반려견명</label>
-            <input type="text" class="form-control" name="user_dog"><br>
+            <input type="text" class="form-control" name="join_dog"><br>
           </div>
           <div class="modal-footer">
             <input type="submit" class="btn bg-orange" value="회원가입">
@@ -794,8 +794,7 @@
 
         <div class="c_search">
           <!-- <div class="col-xs-4"></div> -->
-          <!-- <label for="c_search"></label> -->
-
+            <!-- <label for="c_search"></label> -->            
         </div>
       </div>
     </div>
@@ -934,7 +933,7 @@
     }
 
     function pushClickList(data) {
-      if (click_list.length >= 6) { // 출발지 포함 7개
+      if (click_list.length >= 7) {
         alert("오늘 안에 여기를 다 도시려고요? 못해요!");
         return false;
       }
@@ -1142,10 +1141,8 @@
     })
 
     //click_list 보내기
-    $('#close1').click(() => {
-      let p1 = document.getElementById('show_clicklist')
-      a = document.createElement("p")
-      a.value = click_list
+    $('#close1').click(() => {  
+      a.value = click_list.
       p1.innerHTML = a
       // $.ajax({
       //   url : "/sign/click_list/",
@@ -1155,6 +1152,7 @@
       //   }
       // })
     })
+
     //로그인
     $('#logout').click(() => {
       $.ajax({
@@ -1176,6 +1174,7 @@
         },
       })
     })
+    
     //내정보 수정
     $('#modibutton').click(() => {
       $.ajax({
