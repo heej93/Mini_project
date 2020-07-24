@@ -7,22 +7,26 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
+import json
 
 
 def main_test(request):
 
     return render(request, 'mapAPI/main_v2.0.html')
 
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def path_search(request):
     # <<셀레늄 구조 네이버>>
     # //연결
-    address_name = request.GET.getlist('address_name')
-    place_name = request.GET.getlist('place_name')
-    print(address_name, place_name)
+    name = request.body.decode('utf-8')
+    if name:
+        data = json.loads(data)
+        # data = json.loads(data["list_data"])
+        # keys_start = request.GET["start_point"]
 
-    # return HttpResponse('dd')
-
+        
     driver = wd.Chrome(executable_path='chromedriver.exe')
 
     #-------------------------------------------------------------------------------
@@ -48,11 +52,10 @@ def path_search(request):
         '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
     #-------------------------------------------------------------------------------
     #//리스트값 입력
-    click_list = []
+    click_list = data
     a = len(click_list)
     #------------------------------------------------------------------------------
     # //출발지 입력
-    keys_start = "서울역"
     driver.find_element_by_id('directionStart0').send_keys(keys_start)
     time.sleep(0.2)
     driver.find_element_by_id('directionStart0').send_keys(Keys.RETURN)
@@ -80,3 +83,7 @@ def path_search(request):
     # //길찾기 버튼
     driver.find_element_by_xpath(
         '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/div[2]/button[2]').click()
+
+    print(driver.current_url)
+
+    return HttpResponse('hi')

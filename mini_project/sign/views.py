@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict
 from .models import User
 from django.contrib import messages
+import json
 
 # 로그인
 def login(request):
@@ -100,9 +101,3 @@ def user_drop(request):
     request.session.modified = True
     del request.session['user_id']
     return HttpResponseRedirect('/map/main/')
-
-# click_list 보내기
-def click_list(request):
-    click_list = request.GET.get('click_list')
-    print(click_list)
-    return 

@@ -727,7 +727,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
           <iframe
-            src="https://map.naver.com/v5/directions/14355235.036036875,4186834.1480773445,%EC%9C%A0%EB%A6%BC%EC%9D%B4%EC%97%94%ED%8B%B0,489427525,PLACE_POI/14358455.664752807,4186279.8110201433,%EC%B2%A0%EC%9D%B87%ED%98%B8%20%EC%82%AC%EC%83%81%EC%A0%90,37039143,PLACE_POI/14354528.168402288,4187113.0837449264,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE2,1035370615,PLACE_POI:14354363.359896172,4187374.826381376,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EC%B6%9C%EB%B0%9CGATE3,1533354509,PLACE_POI:14354608.11806057,4187075.4979014155,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE4,1421003665,PLACE_POI:14355230.004395891,4186698.9111340027,%EB%B6%80%EC%82%B0T-PLEXGATE5,1221920334,PLACE_POI:14358432.476902876,4186174.3474107236,%EC%82%AC%EC%83%81%EC%97%AD(%EC%84%9C%EB%B6%80%ED%84%B0%EB%AF%B8%EB%84%90)6%EB%B2%88%EC%B6%9C%EA%B5%AC,21404409,PLACE_POI/car?c=14355714.7192672,4187583.4853463,12,0,0,0,dh"
+            src=""
             height=600px width=100% title="Iframe Example"></iframe>
         </div>
       </div>
@@ -1139,18 +1139,20 @@
     $('#add1').click(function () {
       $('html, body').stop().animate({ scrollTop: 0 }, 600);
     })
-
+    // $('search_sp_text').value
     //click_list 보내기
-    $('#close1').click(() => {  
-      a.value = click_list.
-      p1.innerHTML = a
-      // $.ajax({
-      //   url : "/sign/click_list/",
-      //   data : { 'click_list': click_list, },
-      //   success: function (data) {
-      //     console.log(111)
-      //   }
-      // })
+    $('#search_sp_btn').click(() => {
+      var s_list = click_list.slice();
+      s_list.splice(0,0,{'road_address_name':$('#search_sp_text').val()});  
+      list_data = JSON.stringify(s_list);
+      $.ajax({
+        url : "/map/path_search/",
+        type : "POST",
+        data: list_data,
+        success: function (data) {
+          console.log(111)
+        }
+      })
     })
 
     //로그인
