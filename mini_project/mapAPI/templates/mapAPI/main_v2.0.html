@@ -785,10 +785,10 @@
   <div id="c_location" class="container-fluid2 text-center" style="height: 80px;display: none;">
     <div class="row">
       <div class="col-xs-12">
-        <input type="text" class="form-control input-lg " name="search_location" id="search_location"
+        <input type="text" class="form-control input-lg " name="search_sp_text" id="search_sp_text"
           placeholder="도로명 주소 (ex. 서울 용산구 한강대로 405)" value="" class="pac-target-input" autocomplete="on"
           style="font-family: 나눔바른고딕 Light;width: 500px; display: inline-block;">
-        <button type="button" class="btn btn-lg bg-orange" id="c_search" style="font-family: 나눔바른고딕 Light;"
+        <button type="button" class="btn btn-lg bg-orange" name="search_sp_btn" id="search_sp_btn" style="font-family: 나눔바른고딕 Light;"
           data-toggle="modal" data-target="#naver"> 경로 찾기</button>
 
         <div class="c_search">
@@ -1065,11 +1065,17 @@
   </script>
   <script>
     $(document).ready(function () {
+      // 놀러갈 곳 검색 시 주소 텍스트 없으면 버튼을 비활성화
       $('#search').prop('disabled', true);
       $('#search_location').keyup(function () {
         $('#search').prop('disabled', this.value === "");
       })
 
+      // 출발지 검색 시 주소 텍스트 없으면 버튼을 비활성화
+      $('#search_sp_btn').prop('disabled', true);
+      $('#search_sp_text').keyup(function () {
+        $('#search_sp_btn').prop('disabled', this.value === "");
+      })
 
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
