@@ -934,7 +934,7 @@
     }
 
     function pushClickList(data) {
-      if (click_list.length >= 7) {
+      if (click_list.length >= 6) {
         alert("오늘 안에 여기를 다 도시려고요? 못해요!");
         return false;
       }
@@ -1139,6 +1139,10 @@
     })
     $('#add1').click(function () {
       $('html, body').stop().animate({ scrollTop: 0 }, 600);
+    })
+    $('#close1').click(function () {
+      var scrollHeight = $(document).height();
+      $('html, body').stop().animate({ scrollTop: scrollHeight }, 600);
     })
 
     //click_list 보내기
