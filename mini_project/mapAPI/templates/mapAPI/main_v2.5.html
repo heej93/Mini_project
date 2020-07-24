@@ -13,19 +13,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- kakao API 사용을 위한 style -->
   <style>
-    .modal-dialog.modal-fullsize {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .modal-content.modal-fullsize {
-      height: auto;
-      min-height: 100%;
-      border-radius: 0;
-    }
-
     .map_wrap,
     .map_wrap * {
       margin: 0;
@@ -475,9 +462,9 @@
       .btn-navy {
         background-color: #2C3C5B;
         color: #EBEBEB;
-
+        
       }
-
+    
     }
 
     @media screen and (max-width: 480px) {
@@ -495,14 +482,12 @@
       left: 100%;
       margin-top: -1px;
     }
-
-    .selector img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .selector img{
+    position: absolute; top:0; left: 0;
+    width: 100%;
+    height: 100%;
     }
+
   </style>
 
 </head>
@@ -518,11 +503,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage"><img src="{% static 'mapAPI/logo_mint.jpg' %}" width="160"
-            alt="logo"></a>
+        <a class="navbar-brand" href="#myPage"><img src="{% static 'mapAPI/logo_mint.jpg' %}" width="160" alt="logo"></a>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar"
-        style="margin-top: 10px; font-family: 나눔바른고딕;font-size: 15px;">
+      <div class="collapse navbar-collapse" id="myNavbar" style="margin-top: 10px; font-family: 나눔바른고딕;font-size: 15px;">
         <ul class="nav navbar-nav navbar-right">
           {% if request.session.user_id %}
           <li><a data-toggle="modal" data-target="#myinfoModal" id="my_page">My Page</a></li>
@@ -537,7 +520,7 @@
     </div>
   </nav>
 
-  <div class="jumbotron text-center">
+  <div class="jumbotron text-center" style="height:410px">
     <h5>댕댕이와 함께할 장소는 어디인가요?</h5>
     <h3>함께가개에서 반려견과 함께할 여정을 계획해보세요</h3>
 
@@ -551,7 +534,7 @@
               style="margin-left: 80px;font-family: 나눔바른고딕 Light;">
             <i class="locate-me loading"></i>
           </div>
-
+          
           <div class="dropdown">
             <div class="col-xs-3">
               <label for="category"></label>
@@ -570,9 +553,7 @@
           <div class="search" style="float:left">
             <div class="col-xs-4"></div>
             <label for="search"></label>
-            <button type="submit" class="btn btn-lg" id="search"
-              style="margin-left: 60px; background-color: #2C3C5B; color: #EBEBEB;font-family: 나눔바른고딕 Light;"> 검 색
-            </button>
+            <button type="submit" class="btn btn-lg" id="search" style="margin-left: 60px; background-color: #2C3C5B; color: #EBEBEB;font-family: 나눔바른고딕 Light;"> 검 색 </button>
           </div>
         </div>
       </div>
@@ -630,28 +611,24 @@
           <h4 class="modal-title">회원가입</h4>
         </div>
 
-        <form action="{% url 'sign:join' %}" method="post">
+        <form action="{% url 'sign:join_post' %}" method="post">
           <div class="modal-body">
             {% csrf_token %}
             <label for="user_id">아이디</label>
-            <input type="text" class="form-control" name="join_id">
-            <button type='button' id="id_check" class="btn btn-info">중복확인</button>
-            <p id="id_result"></p><br>
-            <label for="join_pw">비밀번호</label>
-            <input type="password" class="form-control" name="join_pw"><br>
-            <label for="join_pw2">비밀번호 확인</label>
-            <input type="password" class="form-control" name="join_pw2" id="user_pw2">
-            <p id="pw_result"></p><br>
+            <input type="text" class="form-control" name="user_id"><br>
+            <label for="user_pw">비밀번호</label>
+            <input type="password" class="form-control" name="user_pw"><br>
+            <label for="user_pw2">비밀번호 재확인</label>
+            <input type="password" class="form-control" name="user_pw2"><br>
             <label for="user_email">이메일</label>
             <input type="email" class="form-control" name="user_email"><br>
             <label for="user_dog">반려견명</label>
             <input type="text" class="form-control" name="user_dog"><br>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn bg-orange" value="회원가입">
+            <input type="submit" class="btn bg-orange" value="가입하기">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-          >>>>>>> origin/kakao_API_hj
         </form>
       </div>
     </div>
@@ -670,16 +647,16 @@
           <div class="modal-body">
             {% csrf_token %}
             <label for="user_id">아이디</label>
-            <h1 name="user_id" class="form-control"></h1><br>
+            <h1 name="user_id" class="form-control">{{user.user_id}}</h1><br>
             <label for="user_pw">비밀번호</label>
-            <h1 name="user_pw" class="form-control"></h1><br>
+            <h1 name="user_pw" class="form-control">{{user.user_pw}}</h1><br>
             <label for="user_email">이메일</label>
-            <h1 name="user_email" class="form-control"></h1><br>
+            <h1 name="user_email" class="form-control">{{user.user_email}}</h1><br>
             <label for="user_dog">반려견명</label>
-            <h1 name="user_dog" class="form-control"></h1><br>
+            <h1 name="user_dog" class="form-control">{{user.user_dog}}</h1><br>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modi" id="modibutton"
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modiinfo" id="modi_info"
               data-dismiss="modal">정보수정</button>
             <input type="submit" class="btn btn-warning" value="회원탈퇴">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -690,7 +667,7 @@
   </div>
 
   <!-- 정보수정 -->
-  <div class="modal fade" id="modi" role="dialog">
+  <div class="modal fade" id="modiinfo" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content col-sm-8 col-sm-offset-2" style="margin-top: 60px;font-family: 나눔바른고딕;">
@@ -719,21 +696,8 @@
     </div>
   </div>
 
-  <!-- iframe test용입니다 (Nougaga) 1988-->
-  <div class="modal fade" id="naver" role="dialog">
-    <div class="modal-dialog modal-fullsize">
-      <!-- Modal content-->
-      <div class="modal-content col-lm-8 col-lm-offset-2" style="margin-top: 60px;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
-          <iframe
-            src="https://map.naver.com/v5/directions/14355235.036036875,4186834.1480773445,%EC%9C%A0%EB%A6%BC%EC%9D%B4%EC%97%94%ED%8B%B0,489427525,PLACE_POI/14358455.664752807,4186279.8110201433,%EC%B2%A0%EC%9D%B87%ED%98%B8%20%EC%82%AC%EC%83%81%EC%A0%90,37039143,PLACE_POI/14354528.168402288,4187113.0837449264,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE2,1035370615,PLACE_POI:14354363.359896172,4187374.826381376,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EC%B6%9C%EB%B0%9CGATE3,1533354509,PLACE_POI:14354608.11806057,4187075.4979014155,%EA%B9%80%ED%95%B4%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EA%B5%AD%EB%82%B4%EC%84%A0%EC%B2%AD%EC%82%ACGATE4,1421003665,PLACE_POI:14355230.004395891,4186698.9111340027,%EB%B6%80%EC%82%B0T-PLEXGATE5,1221920334,PLACE_POI:14358432.476902876,4186174.3474107236,%EC%82%AC%EC%83%81%EC%97%AD(%EC%84%9C%EB%B6%80%ED%84%B0%EB%AF%B8%EB%84%90)6%EB%B2%88%EC%B6%9C%EA%B5%AC,21404409,PLACE_POI/car?c=14355714.7192672,4187583.4853463,12,0,0,0,dh"
-            height=600px width=100% title="Iframe Example"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -764,43 +728,13 @@
 
 
   <div id="buttons_result" class="container-fluid" style="display:none;">
-    <button type="button" class="btn btn-default btn-block btn-lg" id="add1"
-      style="width: 900px;margin:0 auto;font-family: 나눔바른고딕 Light;">다른 카테고리 검색하기</button>
-    
-    <form>
-      <input type="hidden" name="click_list_input" value=click_list>
-      <button type="button" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
-        style="width: 900px;margin:0 auto;margin-top: 10px;font-family: 나눔바른고딕 Light;">선택한 장소들의 최적 경로 찾기</button>
-      <p id="show_clicklist">
-        </p1>
+    <button type="button" class="btn btn-default btn-block btn-lg" id="add1" style="width: 900px;margin:0 auto;font-family: 나눔바른고딕 Light;">다른 카테고리 검색하기</button>
+    <form action="">
+      <input type="hidden" value=click_list>
+      <button type="submit" class="btn btn-default btn-block btn-lg bg-orange" id="close1"
+      style="width: 900px;margin:0 auto;margin-top: 10px;font-family: 나눔바른고딕 Light;">선택한 장소들의 최적 경로 찾기</button>
     </form>
   </div>
-
-  <!-- 출발지 입력 -->
-
-  <div id="blank4" class="container-fluid2 text-center" style="height: 80px; display: none;">
-    <h2 style="font-size: 10; font-family: 나눔바른고딕;">출발지의 '도로명 주소'를 입력하세요</h2>
-  </div>
-
-  <div id="c_location" class="container-fluid2 text-center" style="height: 80px;display: none;">
-    <div class="row">
-      <div class="col-xs-12">
-        <input type="text" class="form-control input-lg " name="search_location" id="search_location"
-          placeholder="도로명 주소 (ex. 서울 용산구 한강대로 405)" value="" class="pac-target-input" autocomplete="on"
-          style="font-family: 나눔바른고딕 Light;width: 500px; display: inline-block;">
-        <button type="button" class="btn btn-lg bg-orange" id="c_search" style="font-family: 나눔바른고딕 Light;"
-          data-toggle="modal" data-target="#naver"> 경로 찾기</button>
-
-        <div class="c_search">
-          <!-- <div class="col-xs-4"></div> -->
-          <!-- <label for="c_search"></label> -->
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 
 
   <footer class="container-fluid text-center">
@@ -837,7 +771,7 @@
     var input_addr = "서울 강남구"; // 초기값
     var input_cat = "애견카페"; // 초기값
     // 키워드로 장소를 검색합니다
-
+    
     searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
@@ -942,8 +876,8 @@
         return false;
       }
       var scrollPosition = $('#blank3').offset().top;
-      $('html, body').stop().animate({ scrollTop: scrollPosition - 80 }, 600);
-
+      $('html, body').stop().animate( { scrollTop : scrollPosition-80}, 600 );
+    
 
       click_list.push(data);
       var clk_btns = document.querySelector('#click_list');
@@ -1063,7 +997,7 @@
 
 
   </script>
-  <script>
+  <script> 
     $(document).ready(function () {
       $('#search').prop('disabled', true);
       $('#search_location').keyup(function () {
@@ -1104,7 +1038,6 @@
         });
       });
     });
-
     //화면 숨김, 보이기
     $('#search').click(function () {
       $('#blank').hide();
@@ -1115,39 +1048,17 @@
     $('#search').click(function () {
       $('#buttons_result').show();
     })
-    $('#close1').click(function () {
-      $('#blank4').show();
-    })
-    $('#close1').click(function () {
-      $('#c_location').show();
-    })
-
-
-
-
+    
+    
     //스크롤 이동
     $('#search').click(function () {
       var scrollPosition = $('#result_title').offset().top;
-      $('html, body').stop().animate({ scrollTop: scrollPosition - 80 }, 600);
+      $('html, body').stop().animate( { scrollTop : scrollPosition-80 }, 600 );
     })
     $('#add1').click(function () {
-      $('html, body').stop().animate({ scrollTop: 0 }, 600);
+      $('html, body').stop().animate( { scrollTop : 0 }, 600 );
     })
-
-    //click_list 보내기
-    $('#close1').click(() => {
-      let p1 = document.getElementById('show_clicklist')
-      a = document.createElement("p")
-      a.value = click_list
-      p1.innerHTML = a
-      // $.ajax({
-      //   url : "/sign/click_list/",
-      //   data : { 'click_list': click_list, },
-      //   success: function (data) {
-      //     console.log(111)
-      //   }
-      // })
-    })
+    
     //로그인
     $('#logout').click(() => {
       $.ajax({
@@ -1156,67 +1067,33 @@
           location = '/map/main/';
         },
       })
-    })
-    //내정보
-    $('#my_page').click(() => {
-      $.ajax({
-        url: "/sign/user_info/",
-        success: function (data) {
-          $('h1[name=user_id]').text(data.user_id);
-          $('h1[name=user_pw]').text(data.user_pw);
-          $('h1[name=user_email]').text(data.user_email);
-          $('h1[name=user_dog]').text(data.user_dog);
-        },
+
+      $('#my_page').click(() => {
+        $.ajax({
+          url: "/sign/modi_info/",
+          success: function (data) {
+            $('h1[name=user_id]').text(data.user_id);
+            $('h1[name=user_pw]').text(data.user_pw);
+            $('h1[name=user_email]').text(data.user_email);
+            $('h1[name=user_dog]').text(data.user_dog);
+          },
+        })
+      })
+      $('#modi_info').click(() => {
+        $.ajax({
+          url: "/sign/modi_info/",
+          success: function (data) {
+            $('input[name=user_id]').val(data.user_id);
+            $('input[name=user_pw]').val(data.user_pw);
+            $('input[name=user_email]').val(data.user_email);
+            $('input[name=user_dog]').val(data.user_dog);
+          },
+        })
       })
     })
-    //내정보 수정
-    $('#modibutton').click(() => {
-      $.ajax({
-        url: "/sign/user_info/",
-        success: function (data) {
-          $('input[name=user_id]').val(data.user_id);
-          $('input[name=user_pw]').val(data.user_pw);
-          $('input[name=user_email]').val(data.user_email);
-          $('input[name=user_dog]').val(data.user_dog);
-        },
-      })
-    })
-    //아이디 중복 검사
-    $('#id_check').click(() => {
-      $.ajax({
-        url: "/sign/id_check/",
-        data: { 'user_id': $("[name=join_id]").val(), },
-        success: function (data) {
-          if (data['overlap'] == "fail") {
-            var p1 = document.getElementById("id_result")
-            p1.innerHTML = "중복된 아이디입니다."
-          } else {
-            var p1 = document.getElementById("id_result")
-            p1.innerHTML = "사용 가능한 아이디입니다."
-          }
-        }
-      })
-    })
-    //비밀번호 중복 검사
-    $('#user_pw2').change(() => {
-      $.ajax({
-        url: "/sign/pw_check/",
-        data: {
-          'join_pw': $("[name=join_pw]").val(),
-          'join_pw2': $("[name=join_pw2]").val(),
-        },
-        success: function (data) {
-          if (data['overlap'] == "fail") {
-            var p1 = document.getElementById("pw_result")
-            p1.innerHTML = "비밀번호가 다릅니다"
-          } else {
-            var p1 = document.getElementById("pw_result")
-            p1.innerHTML = "사용 가능한 비밀번호 입니다."
-          }
-        }
-      })
-    })
+
   </script>
+
 </body>
 
 </html>

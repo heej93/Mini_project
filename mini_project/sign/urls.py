@@ -20,9 +20,13 @@ from . import views
 app_name = "sign"
 urlpatterns = [
     path('join/', views.join, name="join"),
-    path('join_post/', views.join_post, name="join_post"),
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
     path('modi_info/', views.modi_info, name="modi_info"),
-    path('user_drop/', views.user_drop, name="user_drop")
+    path('user_drop/', views.user_drop, name="user_drop"),
+    path('user_info/', views.user_info, name="user_info"),
+    path('id_check/', views.id_check, name="id_check"),
+    path('pw_check/', views.pw_check, name="pw_check"),
+    path('click_list/', views.click_list, name="click_list"),
+
 ]
