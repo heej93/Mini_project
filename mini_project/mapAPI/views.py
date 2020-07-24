@@ -20,11 +20,9 @@ from django.views.decorators.csrf import csrf_exempt
 def path_search(request):
     # <<셀레늄 구조 네이버>>
     # //연결
-    name = request.body.decode('utf-8')
-    if name:
+    data = request.body.decode('utf-8')
+    if data:
         data = json.loads(data)
-        # data = json.loads(data["list_data"])
-        # keys_start = request.GET["start_point"]
 
         
     driver = wd.Chrome(executable_path='chromedriver.exe')
@@ -37,53 +35,51 @@ def path_search(request):
     #-------------------------------------------------------------------------------
     # //자동차 버튼
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/ul/li[2]/a').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/ul/l0.5]/a').click()
     #-------------------------------------------------------------------------------
     # //경유지 추가 버튼
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     #-------------------------------------------------------------------------------
     #//리스트값 입력
     click_list = data
     a = len(click_list)
     #------------------------------------------------------------------------------
     # //출발지 입력
-    driver.find_element_by_id('directionStart0').send_keys(keys_start)
-    time.sleep(0.2)
+    driver.find_element_by_id('directionStart0').send_keys(data[0]['road_address_name'])
+    time.sleep(0.5)
     driver.find_element_by_id('directionStart0').send_keys(Keys.RETURN)
-    time.sleep(0.2)
+    time.sleep(0.5)
     #-------------------------------------------------------------------------------
     # //경유지 입력
-    for i in range(a-1):
+    for i in range(1, a-1):
         keys_val = click_list[i]['address_name'] + \
             " "+click_list[i]['place_name']
         print(keys_val)
         driver.find_element_by_id('directionVia%s' % (i+1)).send_keys(keys_val)
-        time.sleep(0.2)
+        time.sleep(0.5)
         driver.find_element_by_id('directionVia%s' %
                                   (i+1)).send_keys(Keys.RETURN)
-        time.sleep(0.2)
+        time.sleep(0.5)
     #-------------------------------------------------------------------------------
     # //도착지 입력
     keys_last_val = click_list[a-1]['address_name'] + \
         " "+click_list[a-1]['place_name']
     driver.find_element_by_id('directionGoal6').send_keys(keys_last_val)
-    time.sleep(0.2)
+    time.sleep(0.5)
     driver.find_element_by_id('directionGoal6').send_keys(Keys.RETURN)
-    time.sleep(0.2)
+    time.sleep(0.5)
     #--------------------------------------------------------------------------------
     # //길찾기 버튼
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/div[2]/button[2]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/di0.5]/butto0.5]').click()
 
-    print(driver.current_url)
-
-    return HttpResponse('hi')
+    return HttpResponse(driver.current_url)

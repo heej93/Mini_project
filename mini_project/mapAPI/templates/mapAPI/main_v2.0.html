@@ -727,12 +727,28 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
           <iframe
-            src=""
+            src="https://lh3.googleusercontent.com/proxy/LUkkgyu-Dm7OLAPeHXg2T03KhBzL6qNw1fpnXUcwEhwnpE2Ivt1qR05HiZUptLuC0qCG0G5yy7zNG-k-mSuu-CDmfYsR1KBsJXphqPjf5q_gxNayoA"
             height=600px width=100% title="Iframe Example"></iframe>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="naver" role="dialog"> 
+    <div class="modal-dialog modal-fullsize">
+      <!-- Modal content-->
+      <div class="modal-content col-lm-8 col-lm-offset-2" style="margin-top: 60px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
+          <iframe
+            src=data
+            height=600px width=100% title="Iframe Example"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- <div id="map_show" style="display:none;"> -->
   <div class="map_wrap">
     <div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;margin:0 auto;"></div>
@@ -1150,7 +1166,7 @@
         type : "POST",
         data: list_data,
         success: function (data) {
-          console.log(111)
+          $('#naver iframe').attr('src', data);
         }
       })
     })
