@@ -24,31 +24,28 @@ def path_search(request):
     if data:
         data = json.loads(data)
 
-        
-    driver = wd.Chrome(executable_path='chromedriver.exe')
+    options = wd.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument('window-size=1920x1080')
+    options.add_argument("disable-gpu") 
 
+    driver = wd.Chrome(executable_path='chromedriver.exe', chrome_options=options)
     #-------------------------------------------------------------------------------
     # //네이버맵 연결
-    driver.get(
-        'https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
+    driver.get('https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
     driver.implicitly_wait(5)
     #-------------------------------------------------------------------------------
     # //자동차 버튼
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/ul/l0.5]/a').click()
+    # //자동차 버튼
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/ul/li[2]/a').click()
     #-------------------------------------------------------------------------------
     # //경유지 추가 버튼
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/di0.5]/butto0.5]').click()
     #-------------------------------------------------------------------------------
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
     #//리스트값 입력
     click_list = data
     a = len(click_list)
@@ -80,6 +77,6 @@ def path_search(request):
     #--------------------------------------------------------------------------------
     # //길찾기 버튼
     driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/di0.5]/butto0.5]').click()
+        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/div[2]/button[2]').click()
 
     return HttpResponse(driver.current_url)

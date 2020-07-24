@@ -727,8 +727,9 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
           <iframe
-            src="https://lh3.googleusercontent.com/proxy/LUkkgyu-Dm7OLAPeHXg2T03KhBzL6qNw1fpnXUcwEhwnpE2Ivt1qR05HiZUptLuC0qCG0G5yy7zNG-k-mSuu-CDmfYsR1KBsJXphqPjf5q_gxNayoA"
-            height=600px width=100% title="Iframe Example"></iframe>
+            src="https://i.pinimg.com/originals/00/9d/4d/009d4d8410c7fbc3603731c9d1dce4e7.gif"
+            id="the_iframe" onload="calcHeight();" name="WrittenPublic" title="게시판뷰" frameborder="0" scrolling="no" style="overflow-x:hidden; overflow:auto; width:100%; min-height:500px;">
+          </iframe>
         </div>
       </div>
     </div>
@@ -740,7 +741,6 @@
       <div class="modal-content col-lm-8 col-lm-offset-2" style="margin-top: 60px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="font-family:'나눔바른펜'">길찾기</h4>
           <iframe
             src=data
             height=600px width=100% title="Iframe Example"></iframe>
@@ -1079,6 +1079,25 @@
 
 
 
+  </script>
+
+  <script type="text/javascript"> 
+    //<![CDATA[
+    function calcHeight(){
+    //find the height of the internal page
+    
+    var the_height=
+    document.getElementById('the_iframe').contentWindow.
+    document.body.scrollHeight;
+    
+    //change the height of the iframe
+    document.getElementById('the_iframe').height=
+    the_height;
+    
+    //document.getElementById('the_iframe').scrolling = "no";
+    document.getElementById('the_iframe').style.overflow = "hidden";
+    }
+    //
   </script>
   <script>
     $(document).ready(function () {
