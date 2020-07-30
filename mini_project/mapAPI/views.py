@@ -33,7 +33,7 @@ def path_search(request):
     #-------------------------------------------------------------------------------
     # //네이버맵 연결
     driver.get('https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(3)
     #-------------------------------------------------------------------------------
     # //자동차 버튼
     # //자동차 버튼
@@ -52,9 +52,9 @@ def path_search(request):
     #------------------------------------------------------------------------------
     # //출발지 입력
     driver.find_element_by_id('directionStart0').send_keys(data[0]['road_address_name'])
-    time.sleep(0.5)
+    time.sleep(0.8)
     driver.find_element_by_id('directionStart0').send_keys(Keys.RETURN)
-    time.sleep(0.5)
+    time.sleep(0.8)
     #-------------------------------------------------------------------------------
     # //경유지 입력
     for i in range(1, a-1):
@@ -62,18 +62,18 @@ def path_search(request):
             " "+click_list[i]['place_name']
         print(keys_val)
         driver.find_element_by_id('directionVia%s' % (i+1)).send_keys(keys_val)
-        time.sleep(0.5)
+        time.sleep(0.8)
         driver.find_element_by_id('directionVia%s' %
                                   (i+1)).send_keys(Keys.RETURN)
-        time.sleep(0.5)
+        time.sleep(0.8)
     #-------------------------------------------------------------------------------
     # //도착지 입력
     keys_last_val = click_list[a-1]['address_name'] + \
         " "+click_list[a-1]['place_name']
     driver.find_element_by_id('directionGoal6').send_keys(keys_last_val)
-    time.sleep(0.5)
+    time.sleep(0.8)
     driver.find_element_by_id('directionGoal6').send_keys(Keys.RETURN)
-    time.sleep(0.5)
+    time.sleep(0.8)
     #--------------------------------------------------------------------------------
     # //길찾기 버튼
     driver.find_element_by_xpath(

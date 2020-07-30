@@ -15,6 +15,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#session 브라우저 닫힐 때 초기화
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#session 수명 시간 (30분 설정)
+SESSION_COOKIE_AGE = 1800
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
