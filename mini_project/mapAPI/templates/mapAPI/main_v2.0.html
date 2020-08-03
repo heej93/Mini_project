@@ -832,8 +832,12 @@
     // 마커를 담을 배열입니다
     var markers = [];
 
-    // 클릭기록 저장용
+    // 마커 또는 리스트를 클릭 시 해당 장소 데이터를 저장하는 배열입니다
     var click_list = [];
+
+    
+
+
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
       mapOption = {
@@ -930,10 +934,10 @@
         ((marker, itemEl, data) => {
           place_data = data;
           kakao.maps.event.addListener(marker, 'click', () => {
-            pushClickList(data)
+            pushClickList(data, marker)
           });
           itemEl.addEventListener("click", () => {
-            pushClickList(data);
+            pushClickList(data, marker);
           }, false);
         })(marker, itemEl, places[i]);
 
@@ -948,7 +952,7 @@
       map.setBounds(bounds);
     }
 
-    function pushClickList(data) {
+    function pushClickList(data, marker) {
       if (click_list.length >= 6) {
         alert("오늘 안에 여기를 다 도시려고요? 못해요!");
         return false;
