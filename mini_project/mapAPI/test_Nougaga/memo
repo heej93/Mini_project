@@ -1,1 +1,10 @@
 https://map.kakao.com/?map_type=TYPE_MAP&target=walk&rt=975771,486419,975924,486882,977000,487000,980000,490000
+
+
+map_type=TYPE_MAP
+target=traffic
+rt=507932%2C1106471%2C545666%2C1053688
+rt1=
+rt2=%EC%97%90%EB%B2%84%EB%9E%9C%EB%93%9C
+rtIds=%2CP18581607
+대중교통 수단: transitOption=

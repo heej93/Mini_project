@@ -742,7 +742,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <iframe
             src=data
-            height=600px width=100% title="Iframe Example"></iframe>
+            height=600px width=100% title="Navigation"></iframe>
         </div>
       </div>
     </div>
@@ -834,10 +834,6 @@
 
     // 마커 또는 리스트를 클릭 시 해당 장소 데이터를 저장하는 배열입니다
     var click_list = [];
-
-    
-
-
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
       mapOption = {
@@ -964,8 +960,11 @@
       var scrollPosition = $('#blank3').offset().top;
       $('html, body').stop().animate({ scrollTop: scrollPosition - 80 }, 600);
 
-
+          
       click_list.push(data);
+      var idx = click_list.indexOf(data);
+      click_list[idx].k = marker.k;
+
       var clk_btns = document.querySelector('#click_list');
       var del_button = document.createElement('input');
 
@@ -978,7 +977,6 @@
       clk_btns.appendChild(del_button);
       ((button, data) => {
         button.addEventListener("click", () => {
-          var idx = click_list.indexOf(data);
           if (idx > -1) click_list.splice(idx, 1);
 
           clk_btns.removeChild(button)
@@ -1196,6 +1194,18 @@
           $('#naver iframe').attr('src', data);
         }
       })
+    // $('#search_sp_btn').click(() => {
+    //   var s_list = click_list.slice();
+    //   s_list.splice(0,0,{'road_address_name':$('#search_sp_text').val()});  
+    //   list_data = JSON.stringify(s_list);
+    //   $.ajax({
+    //     url : "/map/path_search/",
+    //     type : "POST",
+    //     data: list_data,
+    //     success: function (data) {
+    //       $('#naver iframe').attr('src', data);
+    //     }
+    //   })
     })
 
     //로그인
