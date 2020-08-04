@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61a310f738f452fe0e606630bd69132&libraries=services,clusterer,drawing"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     var geocoder = new kakao.maps.services.Geocoder();
 
@@ -21,6 +22,27 @@
     };
 
     geocoder.addressSearch('해남군 송지면', callback);
+
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    var coord = new kakao.maps.LatLng(37.56496830314491, 126.93990862062978);
+    var callback = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            console.log('그런 너를 마주칠까 ' + result[0].address.address_name + '을 못가');
+        }
+    };
+
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);   
+    
+    daum.postcode.load(function(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+                console.log(data.roadAddress)
+            }
+        }).open();
+    });
+     
+
 </script>
 </body>
 
