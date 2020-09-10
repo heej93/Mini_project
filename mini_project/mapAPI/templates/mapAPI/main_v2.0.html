@@ -1110,9 +1110,9 @@
       })
 
       // 출발지 검색 시 주소 텍스트 없으면 버튼을 비활성화
-      $('#search_sp_btn').prop('disabled', true);
-      $('#search_sp_text').keyup(function () {
-        $('#search_sp_btn').prop('disabled', this.value === "");
+      // $('#search_sp_btn').prop('disabled', true);
+      $('#search_sp_btn').hover(()=>{
+        $(this).prop('disabled', $('#search_sp_text').val() === "");
       })
 
       // Add smooth scrolling to all links in navbar + footer link
@@ -1208,6 +1208,20 @@
     //     }
     //   })
     })
+    $('#search_sp_text').click(() => {
+      var roadAddress;
+
+      daum.postcode.load(function(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+              $('#search_sp_text').attr('value', data.roadAddress);
+              // document.getElementById("search_sp_text").value = data.roadAddress;
+            }
+        }).open();
+      });
+    });
+
+
 
     //로그인
     $('#logout').click(() => {
